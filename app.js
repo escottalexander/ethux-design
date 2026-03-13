@@ -92,8 +92,9 @@ function renderNav(active) {
         <span class="nav-wordmark">EthUX</span>
       </a>
       <div class="nav-links">
-        <a href="#/" class="${active==='map'?'active':''}">Pain Points</a>
+        <a href="#/category/getting-started" class="${active==='map'?'active':''}">Pain Points</a>
         <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
+        <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
         <a href="#/agents" class="${active==='agents'?'active':''}">AI Agents</a>
         <a href="#/about" class="${active==='about'?'active':''}">About</a>
         <a href="#/submit" class="${active==='submit'?'active':''}">Submit</a>
@@ -130,7 +131,7 @@ function renderHome() {
 
   let guideCards = '';
   DATA.checklists.forEach(cl => {
-    guideCards += `<a href="#/checklists" class="guide-card" style="text-decoration:none;color:inherit;display:block;"><div class="guide-card-title">${cl.title}<span class="guide-format-badges"><span class="guide-format human">UI Checklist</span><span class="guide-format agent">Agent MD</span></span></div><div class="guide-card-desc">${cl.desc}</div><div class="guide-tags"><span class="guide-tag">${cl.patterns} patterns</span>${(cl.standards||[]).map(s=>`<span class="guide-tag">${s}</span>`).join('')}</div></a>`;
+    guideCards += `<a href="#/checklists/${cl.id}" class="guide-card" style="text-decoration:none;color:inherit;display:block;"><div class="guide-card-title">${cl.title}<span class="guide-format-badges"><span class="guide-format human">UI Checklist</span><span class="guide-format agent">Agent MD</span></span></div><div class="guide-card-desc">${cl.desc}</div><div class="guide-tags"><span class="guide-tag">${cl.patterns} patterns</span>${(cl.standards||[]).map(s=>`<span class="guide-tag">${s}</span>`).join('')}</div></a>`;
   });
 
   return `
@@ -163,13 +164,6 @@ function renderHome() {
           <div class="section-title">Problem Map</div>
           <div class="section-desc">${stats.total} UX pain points organized across 8 categories. Each tracks severity, solution progress, and adoption across the wallet ecosystem. Click any category to explore.</div>
           <div class="cat-grid">${catCards}</div>
-        </section>
-
-        <section class="section">
-          <div class="section-eyebrow">Urgent</div>
-          <div class="section-title">Critical Issues</div>
-          <div class="section-desc">The ${crits.length} pain points causing the most user drop-off and financial loss right now. Each includes a real user story, the business opportunity if fixed, and the ecosystem risk if ignored.</div>
-          <div class="crit-list">${critItems}</div>
         </section>
 
         <section class="section">
@@ -352,6 +346,36 @@ function renderAbout() {
           <p>Point your agent to <code class="code-path" style="display:inline;">ux.ethereum.org/SKILL.md</code> for the root index.</p>
           <h2>Contributing</h2>
           <p>This project is open source. Submit UX issues through our <a href="#/submit">feedback form</a>, contribute on <a href="https://github.com/ethereum/ux" target="_blank" rel="noopener noreferrer">GitHub</a>, or reach out at <a href="mailto:ux@ethereum.org">ux@ethereum.org</a>.</p>
+        </div>
+      </div>
+      ${renderFooter()}
+    </main>`;
+}
+
+function renderInsights() {
+  return `
+    ${renderNav('insights')}
+    <main id="main-content">
+      <div class="container" style="padding-top:80px;min-height:100vh;">
+        <div class="section-eyebrow">Research</div>
+        <div class="section-title">Insights</div>
+        <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). Why the current approach to Ethereum UX doesn't scale, and what needs to change.</div>
+        <div class="insight-grid" style="margin-top:32px;">
+          <a href="#/chasm" class="insight-card">
+            <div class="insight-card-eyebrow">Adoption</div>
+            <div class="insight-card-title">The Chasm</div>
+            <div class="insight-card-desc">Why early adopter UX doesn't scale to the majority. Beautiful UI can mask dangerous UX.</div>
+          </a>
+          <a href="#/onboarding" class="insight-card">
+            <div class="insight-card-eyebrow">Framework</div>
+            <div class="insight-card-title">Onboarding Journey</div>
+            <div class="insight-card-desc">Five barriers between curiosity and competence. The minimum viable knowledge problem.</div>
+          </a>
+          <a href="#/paradigms" class="insight-card">
+            <div class="insight-card-eyebrow">Design</div>
+            <div class="insight-card-title">Investing vs Transacting</div>
+            <div class="insight-card-desc">Ethereum has a dual-nature problem. Mixing investment and payment UX creates confusion.</div>
+          </a>
         </div>
       </div>
       ${renderFooter()}
@@ -774,9 +798,12 @@ function router() {
   app.classList.remove('ready');
   setTimeout(() => {
     let html='';
+    let scrollToChecklist = null;
     if (hash.startsWith('/category/')) { const id=hash.replace('/category/',''); const cat=DATA.categories.find(c=>c.id===id); html=cat?renderCategory(cat.id):renderHome(); }
     else if (hash==='/submit') html=renderSubmit();
+    else if (hash.startsWith('/checklists/')) { scrollToChecklist=hash.replace('/checklists/',''); html=renderChecklists(); }
     else if (hash==='/checklists') html=renderChecklists();
+    else if (hash==='/insights') html=renderInsights();
     else if (hash==='/agents') html=renderAgents();
     else if (hash==='/about') html=renderAbout();
     else if (hash==='/chasm') html=renderChasm();
@@ -784,7 +811,8 @@ function router() {
     else if (hash==='/paradigms') html=renderParadigms();
     else html=renderHome();
     app.innerHTML=html;
-    window.scrollTo(0,0);
+    if (scrollToChecklist) { const el=document.getElementById('cl-'+scrollToChecklist); if(el){toggleCLSection(scrollToChecklist);setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),150);} else { window.scrollTo(0,0); } }
+    else { window.scrollTo(0,0); }
     requestAnimationFrame(()=>{
       document.querySelectorAll('.progress-fill[data-width]').forEach(el=>{requestAnimationFrame(()=>{el.style.width=el.dataset.width;});});
       app.classList.add('ready');
@@ -803,9 +831,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const hash=window.location.hash.slice(1)||'/';
   const app=document.getElementById('app');
   let html='';
+  let scrollToChecklist = null;
   if (hash.startsWith('/category/')) { const id=hash.replace('/category/',''); const cat=DATA.categories.find(c=>c.id===id); html=cat?renderCategory(cat.id):renderHome(); }
   else if (hash==='/submit') html=renderSubmit();
+  else if (hash.startsWith('/checklists/')) { scrollToChecklist=hash.replace('/checklists/',''); html=renderChecklists(); }
   else if (hash==='/checklists') html=renderChecklists();
+  else if (hash==='/insights') html=renderInsights();
   else if (hash==='/agents') html=renderAgents();
   else if (hash==='/about') html=renderAbout();
   else if (hash==='/chasm') html=renderChasm();
@@ -813,6 +844,7 @@ window.addEventListener('DOMContentLoaded', () => {
   else if (hash==='/paradigms') html=renderParadigms();
   else html=renderHome();
   app.innerHTML=html;
+  if (scrollToChecklist) { const el=document.getElementById('cl-'+scrollToChecklist); if(el){toggleCLSection(scrollToChecklist);setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),150);} }
   requestAnimationFrame(()=>{
     document.querySelectorAll('.progress-fill[data-width]').forEach(el=>{requestAnimationFrame(()=>{el.style.width=el.dataset.width;});});
     app.classList.add('ready');
