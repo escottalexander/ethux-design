@@ -78,7 +78,7 @@ function progressColor(pct) {
   }
 }
 function severityBadge(s) { return `<span class="badge badge-${s}">${s}</span>`; }
-function statusBadge(s) { const l={'solved':'Solved','in-progress':'In Progress','unsolved':'Unsolved','research':'Research'}; return `<span class="badge badge-${s}">${l[s]||s}</span>`; }
+function statusBadge(s) { const l={'solved':'Solved','in-progress':'In Progress','unsolved':'Open','research':'Research'}; return `<span class="badge badge-${s}">${l[s]||s}</span>`; }
 function solStatusBadge(s) { const m={'Live':'solved','Ongoing':'in-progress','In Progress':'in-progress','Research':'research','None':'unsolved'}; return `<span class="badge badge-${m[s]||'unsolved'}">${s}</span>`; }
 
 
@@ -93,7 +93,7 @@ function renderNav(active) {
         <span class="nav-wordmark">EthUX</span>
       </a>
       <div class="nav-links">
-        <a href="#/category/getting-started" class="${active==='map'?'active':''}">Pain Points</a>
+        <a href="#/category/getting-started" class="${active==='map'?'active':''}">UX Map</a>
         <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
         <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
         <a href="#/agents" class="${active==='agents'?'active':''}">AI Agents</a>
@@ -119,7 +119,7 @@ function renderHome() {
   DATA.categories.forEach((cat, i) => {
     const s = getCategoryStats(cat);
     const num = String(i + 1).padStart(2, '0');
-    catCards += `<div class="cat-card fade-up stagger-${i+1}" style="--cat-color:${cat.color};" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-title">${cat.title}</div><div class="cat-card-bottom"><div class="cat-card-count">${s.total} pain points</div></div></div>`;
+    catCards += `<div class="cat-card fade-up stagger-${i+1}" style="--cat-color:${cat.color};" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-title">${cat.title}</div><div class="cat-card-bottom"><div class="cat-card-count">${s.total} issues</div></div></div>`;
   });
 
   let critItems = '';
@@ -127,7 +127,7 @@ function renderHome() {
     const num = String(i + 1).padStart(2, '0');
     const details = CRITICAL_DETAILS[p.title] || {};
     const solTags = p.solutions.map(s => `<span class="crit-sol-tag">${s.name}</span>`).join('');
-    critItems += `<div class="crit-card" id="crit-${i}"><div class="crit-item" onclick="toggleCrit(${i})"><span class="crit-num">${num}</span><div class="crit-info"><div class="crit-info-title">${p.title}</div><div class="crit-info-cat">${p.catTitle}</div></div><span class="crit-severity">Critical</span><span class="crit-expand" aria-hidden="true">&#9654;</span></div><div class="crit-detail"><div class="crit-detail-inner">${details.story ? `<div class="crit-story">${details.story}</div>` : `<div class="crit-story">${p.desc}</div>`}<div class="crit-solutions-row">${solTags}</div><div class="crit-meta-grid">${details.opportunity ? `<div class="crit-meta-box"><div class="crit-meta-label opp">Opportunity if fixed</div><div class="crit-meta-text">${details.opportunity}</div></div>` : ''} ${details.risk ? `<div class="crit-meta-box"><div class="crit-meta-label risk">Risk if ignored</div><div class="crit-meta-text">${details.risk}</div></div>` : ''}</div><a class="crit-link-cat" href="#/category/${p.catId}">View in ${p.catTitle} &rarr;</a></div></div></div>`;
+    critItems += `<div class="crit-card" id="crit-${i}"><div class="crit-item" onclick="toggleCrit(${i})"><span class="crit-num">${num}</span><div class="crit-info"><div class="crit-info-title">${p.title}</div><div class="crit-info-cat">${p.catTitle}</div></div><span class="crit-severity">Critical</span><span class="crit-expand" aria-hidden="true">&#9654;</span></div><div class="crit-detail"><div class="crit-detail-inner">${details.story ? `<div class="crit-story">${details.story}</div>` : `<div class="crit-story">${p.desc}</div>`}<div class="crit-solutions-row">${solTags}</div><div class="crit-meta-grid">${details.opportunity ? `<div class="crit-meta-box"><div class="crit-meta-label opp">Opportunity</div><div class="crit-meta-text">${details.opportunity}</div></div>` : ''} ${details.risk ? `<div class="crit-meta-box"><div class="crit-meta-label risk">Risk of inaction</div><div class="crit-meta-text">${details.risk}</div></div>` : ''}</div><a class="crit-link-cat" href="#/category/${p.catId}">View in ${p.catTitle} &rarr;</a></div></div></div>`;
   });
 
   let guideCards = '';
@@ -143,9 +143,9 @@ function renderHome() {
           <div class="hero-eyebrow">UX Observatory</div>
           <h1 class="hero-title">Mapping<br><span class="accent">Ethereum UX</span></h1>
           <p class="hero-desc"><a href="#/chasm" class="hero-desc-link">What got us here won't get us there.</a> Early adopters adopt for different reasons than majority adopters.</p>
-          <p class="hero-desc" style="margin-top:8px;">A living catalog of the usability and comprehension barriers that stand between blockchain applications and their next million users.</p>
+          <p class="hero-desc" style="margin-top:8px;">A living catalog of the UX improvements that will take blockchain applications from early adopters to their next million users.</p>
           <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
-            <a href="#/category/getting-started" class="hero-cta">View Pain Points ${ICONS.arrow}</a>
+            <a href="#/category/getting-started" class="hero-cta">Explore UX Map ${ICONS.arrow}</a>
             <a href="#/checklists" class="hero-cta" style="background:none;color:var(--amber);padding-left:0;">Explore Solutions ${ICONS.arrow}</a>
           </div>
         </section>
@@ -153,7 +153,7 @@ function renderHome() {
 
       <div class="container">
         <div class="stats-bar">
-          <div class="stat-cell"><div class="stat-value">${stats.total}</div><div class="stat-label">Pain Points</div></div>
+          <div class="stat-cell"><div class="stat-value">${stats.total}</div><div class="stat-label">Issues Tracked</div></div>
           <div class="stat-cell"><div class="stat-value accent">${stats.inProgress}</div><div class="stat-label">Being Solved</div></div>
           <div class="stat-cell"><div class="stat-value">${DATA.checklists.length}</div><div class="stat-label">Solutions</div></div>
         </div>
@@ -162,30 +162,30 @@ function renderHome() {
       <div class="container">
         <section class="section">
           <div class="section-eyebrow">Categories</div>
-          <div class="section-title">Problem Map</div>
-          <div class="section-desc">${stats.total} UX pain points organized across 8 categories. Each tracks severity, solution progress, and adoption across the wallet ecosystem. Click any category to explore.</div>
+          <div class="section-title">UX Map</div>
+          <div class="section-desc">${stats.total} UX issues organized across 8 categories. Each tracks severity, solution progress, and adoption across the wallet ecosystem. Click any category to explore.</div>
           <div class="cat-grid">${catCards}</div>
         </section>
 
         <section class="section">
           <div class="section-eyebrow">Research</div>
           <div class="section-title">Insights</div>
-          <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). Why the current approach to Ethereum UX doesn't scale, and what needs to change.</div>
+          <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
           <div class="insight-grid">
             <a href="#/chasm" class="insight-card">
               <div class="insight-card-eyebrow">Adoption</div>
               <div class="insight-card-title">The Chasm</div>
-              <div class="insight-card-desc">Why early adopter UX doesn't scale to the majority. Beautiful UI can mask dangerous UX.</div>
+              <div class="insight-card-desc">How to bridge the gap between early adopter and mainstream UX. Why good UI alone isn't enough.</div>
             </a>
             <a href="#/onboarding" class="insight-card">
               <div class="insight-card-eyebrow">Framework</div>
               <div class="insight-card-title">Onboarding Journey</div>
-              <div class="insight-card-desc">Five barriers between curiosity and competence. The minimum viable knowledge problem.</div>
+              <div class="insight-card-desc">Five stages between curiosity and competence. The minimum viable knowledge gap.</div>
             </a>
             <a href="#/paradigms" class="insight-card">
               <div class="insight-card-eyebrow">Design</div>
               <div class="insight-card-title">Investing vs Transacting</div>
-              <div class="insight-card-desc">Ethereum has a dual-nature problem. Mixing investment and payment UX creates confusion.</div>
+              <div class="insight-card-desc">Ethereum serves two user mindsets. Separating investment and payment UX is a design opportunity.</div>
             </a>
           </div>
         </section>
@@ -199,7 +199,7 @@ function renderHome() {
         </section>
 
         <div class="cta-section">
-          <div class="cta-text"><strong>Encountered a UX issue?</strong> Help us track what needs fixing.</div>
+          <div class="cta-text"><strong>Spotted a UX issue?</strong> Your report helps builders prioritize.</div>
           <a href="#/submit" class="btn btn-primary">Report It</a>
         </div>
       </div>
@@ -223,7 +223,7 @@ function renderCategory(catId) {
     if (p.checklist) { clLink = `<a class="problem-checklist-link" href="#/checklists">View ${p.checklist} solution &rarr;</a>`; }
     let metaGrid = '';
     if (details.opportunity || details.risk) {
-      metaGrid = `<div class="problem-meta-grid">${details.opportunity ? `<div class="problem-meta-box"><div class="problem-meta-label opp">Opportunity if fixed</div><div class="problem-meta-text">${details.opportunity}</div></div>` : ''}${details.risk ? `<div class="problem-meta-box"><div class="problem-meta-label risk">Risk if ignored</div><div class="problem-meta-text">${details.risk}</div></div>` : ''}</div>`;
+      metaGrid = `<div class="problem-meta-grid">${details.opportunity ? `<div class="problem-meta-box"><div class="problem-meta-label opp">Opportunity</div><div class="problem-meta-text">${details.opportunity}</div></div>` : ''}${details.risk ? `<div class="problem-meta-box"><div class="problem-meta-label risk">Risk of inaction</div><div class="problem-meta-text">${details.risk}</div></div>` : ''}</div>`;
     }
     cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,8)}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true">&#9654;</span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}${statusBadge(p.status)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div><div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Status</th></tr></thead><tbody>${solRows}</tbody></table></div>${metaGrid}${eipTags}${clLink}</div></div></div>`;
   });
@@ -255,7 +255,7 @@ function renderSubmit() {
         <div style="max-width:640px;">
           <div class="section-eyebrow">Community</div>
           <div class="section-title">Report a UX Issue</div>
-          <div class="section-desc">Every submission is reviewed and triaged. Your frustration helps us build the case for better UX across the ecosystem.</div>
+          <div class="section-desc">Every submission is reviewed and triaged. Your experience helps us build the case for better UX across the ecosystem.</div>
           <div class="form-card">
             <form id="submit-form" onsubmit="handleSubmit(event)">
               <div class="form-group"><label class="form-label" for="s-title">What happened</label><input class="form-input" id="s-title" type="text" placeholder="e.g., Can't see my tokens on Arbitrum" required></div>
@@ -340,8 +340,8 @@ function renderAbout() {
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div style="max-width:640px;" class="about-content">
           <h1>About<br>EthUX</h1>
-          <p>EthUX is a living, community-sourced map of Ethereum's biggest UX problems, matched with the solutions being built to address them.</p>
-          <p>The goal is to surface critical UX issues from the user's perspective, triage them, coordinate communities around these problems, and track adoption of solutions across the ecosystem.</p>
+          <p>EthUX is a living, community-sourced map of Ethereum's highest-impact UX issues, matched with the solutions being built to address them.</p>
+          <p>The goal is to surface critical UX issues from the user's perspective, triage them, coordinate builders around solutions, and track adoption of solutions across the ecosystem.</p>
           <p>This is not a polished report. It's a collaborative, evolving tracker. Based on research from <strong>14,900+ real Ethereum user stories</strong>.</p>
           <h2>Collaborate</h2>
           <p>Join the conversation on <a href="https://discord.gg/tFmDq3c7" target="_blank" rel="noopener noreferrer">Discord</a> to connect with designers, researchers, and builders working on Ethereum UX.</p>
@@ -363,22 +363,22 @@ function renderInsights() {
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div class="section-eyebrow">Research</div>
         <div class="section-title">Insights</div>
-        <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). Why the current approach to Ethereum UX doesn't scale, and what needs to change.</div>
+        <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
         <div class="insight-grid" style="margin-top:32px;">
           <a href="#/chasm" class="insight-card">
             <div class="insight-card-eyebrow">Adoption</div>
             <div class="insight-card-title">The Chasm</div>
-            <div class="insight-card-desc">Why early adopter UX doesn't scale to the majority. Beautiful UI can mask dangerous UX.</div>
+            <div class="insight-card-desc">How to bridge the gap between early adopter and mainstream UX. Why good UI alone isn't enough.</div>
           </a>
           <a href="#/onboarding" class="insight-card">
             <div class="insight-card-eyebrow">Framework</div>
             <div class="insight-card-title">Onboarding Journey</div>
-            <div class="insight-card-desc">Five barriers between curiosity and competence. The minimum viable knowledge problem.</div>
+            <div class="insight-card-desc">Five stages between curiosity and competence. The minimum viable knowledge gap.</div>
           </a>
           <a href="#/paradigms" class="insight-card">
             <div class="insight-card-eyebrow">Design</div>
             <div class="insight-card-title">Investing vs Transacting</div>
-            <div class="insight-card-desc">Ethereum has a dual-nature problem. Mixing investment and payment UX creates confusion.</div>
+            <div class="insight-card-desc">Ethereum serves two user mindsets. Separating investment and payment UX is a design opportunity.</div>
           </a>
         </div>
       </div>
@@ -393,7 +393,7 @@ function renderChasm() {
       <div class="container">
         <div class="prose">
           <h1>The Chasm</h1>
-          <p class="page-subtitle">Why early adopter UX doesn't scale to the mainstream.</p>
+          <p class="page-subtitle">How Ethereum UX can scale from early adopters to the mainstream.</p>
 
           <div class="curve-container">
             <div class="curve-segments">
@@ -478,7 +478,7 @@ function renderOnboarding() {
       <div class="container">
         <div class="prose">
           <h1>Onboarding<br>Journey</h1>
-          <p class="page-subtitle">Five barriers between first curiosity and confident use. A framework for understanding where users get stuck.</p>
+          <p class="page-subtitle">Five stages between first curiosity and confident use. A framework for understanding where builders can have the most impact.</p>
 
           <div class="journey-steps">
             <div class="journey-step active">
@@ -597,7 +597,7 @@ function renderParadigms() {
             </div>
           </div>
 
-          <h2>The Dual Nature Problem</h2>
+          <h2>The Dual Nature Challenge</h2>
           <p>Most crypto interfaces try to serve both mindsets simultaneously. A wallet shows your portfolio balance (investing) right next to a "Send" button (transacting). A DEX shows price charts (investing) alongside a swap form (transacting).</p>
           <p>This creates a fundamental UX tension. Investing UI wants to give you more information, more options, more control. Transacting UI wants to strip everything away and get you to your goal as fast as possible.</p>
 
