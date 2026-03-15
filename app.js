@@ -100,10 +100,6 @@ function renderNav(active) {
         <a href="#/about" class="${active==='about'?'active':''}">About</a>
         <a href="#/submit" class="${active==='submit'?'active':''}">Submit</a>
       </div>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-        <span class="icon-moon">${ICONS.moon}</span>
-        <span class="icon-sun">${ICONS.sun}</span>
-      </button>
     </nav>`;
 }
 
