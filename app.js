@@ -367,7 +367,7 @@ function renderAbout() {
           <p>Join the conversation on <a href="https://discord.gg/tFmDq3c7" target="_blank" rel="noopener noreferrer">Discord</a> to connect with designers, researchers, and builders working on Ethereum UX.</p>
           <h2>For AI Agents</h2>
           <p>Our solutions are designed to be consumed by AI coding agents. Each solution is a markdown file with YAML frontmatter, decision trees, and code examples.</p>
-          <p>Point your agent to <code class="code-path" style="display:inline;">ux.ethereum.org/SKILL.md</code> for the root index.</p>
+          <p>Browse available skills on the <a href="#/agents">AI Agents page</a>.</p>
           <h2>Contributing</h2>
           <p>This project is open source. Submit UX issues through our <a href="#/submit">feedback form</a>, contribute on <a href="https://github.com/ethereum/ux" target="_blank" rel="noopener noreferrer">GitHub</a>, or reach out at <a href="mailto:ux@ethereum.org">ux@ethereum.org</a>.</p>
         </div>
