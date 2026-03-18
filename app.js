@@ -100,7 +100,19 @@ function renderNav(active) {
         <a href="#/about" class="${active==='about'?'active':''}">About</a>
         <a href="#/submit" class="${active==='submit'?'active':''}">Submit</a>
       </div>
+      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </nav>`;
+}
+
+function toggleMobileNav() {
+  const links = document.querySelector('.nav-links');
+  const btn = document.querySelector('.nav-hamburger');
+  if (links && btn) {
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
 }
 
 function renderFooter() {
@@ -123,7 +135,7 @@ function renderHome() {
     const num = String(i + 1).padStart(2, '0');
     const details = CRITICAL_DETAILS[p.title] || {};
     const solTags = p.solutions.map(s => `<span class="crit-sol-tag">${s.name}</span>`).join('');
-    critItems += `<div class="crit-card" id="crit-${i}"><div class="crit-item" onclick="toggleCrit(${i})"><span class="crit-num">${num}</span><div class="crit-info"><div class="crit-info-title">${p.title}</div><div class="crit-info-cat">${p.catTitle}</div></div><span class="crit-severity">Critical</span><span class="crit-expand" aria-hidden="true">&#9654;</span></div><div class="crit-detail"><div class="crit-detail-inner">${details.story ? `<div class="crit-story">${details.story}</div>` : `<div class="crit-story">${p.desc}</div>`}<div class="crit-solutions-row">${solTags}</div><div class="crit-meta-grid">${details.opportunity ? `<div class="crit-meta-box"><div class="crit-meta-label opp">Opportunity</div><div class="crit-meta-text">${details.opportunity}</div></div>` : ''} ${details.risk ? `<div class="crit-meta-box"><div class="crit-meta-label risk">Risk of inaction</div><div class="crit-meta-text">${details.risk}</div></div>` : ''}</div><a class="crit-link-cat" href="#/category/${p.catId}">View in ${p.catTitle} &rarr;</a></div></div></div>`;
+    critItems += `<div class="crit-card" id="crit-${i}"><div class="crit-item" onclick="toggleCrit(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCrit(${i})}" role="button" tabindex="0" aria-expanded="false"><span class="crit-num">${num}</span><div class="crit-info"><div class="crit-info-title">${p.title}</div><div class="crit-info-cat">${p.catTitle}</div></div><span class="crit-severity">Critical</span><span class="crit-expand" aria-hidden="true">&#9654;</span></div><div class="crit-detail"><div class="crit-detail-inner">${details.story ? `<div class="crit-story">${details.story}</div>` : `<div class="crit-story">${p.desc}</div>`}<div class="crit-solutions-row">${solTags}</div><div class="crit-meta-grid">${details.opportunity ? `<div class="crit-meta-box"><div class="crit-meta-label opp">Opportunity</div><div class="crit-meta-text">${details.opportunity}</div></div>` : ''} ${details.risk ? `<div class="crit-meta-box"><div class="crit-meta-label risk">Risk of inaction</div><div class="crit-meta-text">${details.risk}</div></div>` : ''}</div><a class="crit-link-cat" href="#/category/${p.catId}">View in ${p.catTitle} &rarr;</a></div></div></div>`;
   });
 
   let guideCards = '';
@@ -158,14 +170,14 @@ function renderHome() {
       <div class="container">
         <section class="section">
           <div class="section-eyebrow">Categories</div>
-          <div class="section-title">UX Map</div>
+          <h2 class="section-title">UX Map</h2>
           <div class="section-desc">${stats.total} UX issues organized across 8 categories. Each tracks severity, solution progress, and adoption across the wallet ecosystem. Click any category to explore.</div>
           <div class="cat-grid">${catCards}</div>
         </section>
 
         <section class="section">
           <div class="section-eyebrow">Research</div>
-          <div class="section-title">Insights</div>
+          <h2 class="section-title">Insights</h2>
           <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
           <div class="insight-grid">
             <a href="#/chasm" class="insight-card">
@@ -188,7 +200,7 @@ function renderHome() {
 
         <section class="section">
           <div class="section-eyebrow">For Builders</div>
-          <div class="section-title">Solutions</div>
+          <h2 class="section-title">Solutions</h2>
           <div class="section-desc">Each solution ships as a UI checklist for design reviews and an agent-readable SKILL.md for AI coding assistants. Decision trees, code examples, and wallet support matrices included.</div>
           <div class="guide-grid">${guideCards}</div>
           <a href="#/checklists" class="btn btn-ghost" style="margin-top:24px;">All Solutions</a>
@@ -250,16 +262,16 @@ function renderSubmit() {
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div style="max-width:640px;">
           <div class="section-eyebrow">Community</div>
-          <div class="section-title">Report a UX Issue</div>
+          <h2 class="section-title">Report a UX Issue</h2>
           <div class="section-desc">Every submission is reviewed and triaged. Your experience helps us build the case for better UX across the ecosystem.</div>
           <div class="form-card">
             <form id="submit-form" onsubmit="handleSubmit(event)">
               <div class="form-group"><label class="form-label" for="s-title">What happened</label><input class="form-input" id="s-title" type="text" placeholder="e.g., Can't see my tokens on Arbitrum" required></div>
               <div class="form-group"><label class="form-label" for="s-desc">Tell us more</label><textarea class="form-textarea" id="s-desc" placeholder="What did you expect? What wallet or dapp were you using?" required></textarea></div>
-              <div class="form-group"><label class="form-label" for="s-cat">Category</label><select class="form-select" id="s-cat"><option value="">Pick the closest match...</option>${DATA.categories.map(c=>`<option value="${c.id}">${c.title}</option>`).join('')}<option value="other">Other / Not sure</option></select></div>
+              <div class="form-group"><label class="form-label" for="s-cat">Category</label><select class="form-select" id="s-cat"><option value="" disabled selected>Pick the closest match...</option>${DATA.categories.map(c=>`<option value="${c.id}">${c.title}</option>`).join('')}<option value="other">Other / Not sure</option></select></div>
               <div class="form-group"><label class="form-label" for="s-contact">Contact <span class="form-label-opt">(optional)</span></label><input class="form-input" id="s-contact" type="text" placeholder="Email, Telegram, or Twitter handle"><div class="form-hint">Only used if we need clarification. Never shared.</div></div>
               <button class="btn btn-primary" type="submit">Submit</button>
-              <div class="success-msg">Thanks for sharing. We'll review this and add it to the tracker.</div>
+              <div class="success-msg" role="status">Thanks for sharing. We'll review this and add it to the tracker.</div>
             </form>
           </div>
         </div>
@@ -290,10 +302,10 @@ function renderChecklists() {
       const linkIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
       const docLink = docUrl ? `<a class="cl-item-doc" href="${docUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${linkIcon}EIP</a>` : '';
       const resLink = resUrl ? `<a class="cl-item-doc" href="${resUrl.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation();">${linkIcon}${resUrl.label}</a>` : '';
-      items += `<div class="cl-item ${isDone ? 'done' : ''}" data-cl="${key}"><button class="cl-checkbox ${isDone ? 'checked' : ''}" onclick="toggleCheckItem('${cl.id}',${j})" aria-label="Toggle ${item.text}"></button><span class="cl-item-num">${j+1}</span><div class="cl-item-content" onclick="toggleCheckItem('${cl.id}',${j})"><div class="cl-item-text">${item.text}</div>${item.benefit ? `<div class="cl-item-benefit">${item.benefit}</div>` : ''}<div class="cl-item-meta">${item.eip ? `<span class="cl-item-eip">${item.eip}</span>` : ''}<span class="cl-item-priority ${item.priority}">${item.priority}</span>${docLink}${resLink}</div></div></div>`;
+      items += `<div class="cl-item ${isDone ? 'done' : ''}" data-cl="${key}"><button class="cl-checkbox ${isDone ? 'checked' : ''}" onclick="toggleCheckItem('${cl.id}',${j})" aria-label="Toggle ${item.text}" role="checkbox" aria-checked="${isDone ? 'true' : 'false'}"></button><span class="cl-item-num">${j+1}</span><div class="cl-item-content" onclick="toggleCheckItem('${cl.id}',${j})"><div class="cl-item-text">${item.text}</div>${item.benefit ? `<div class="cl-item-benefit">${item.benefit}</div>` : ''}<div class="cl-item-meta">${item.eip ? `<span class="cl-item-eip">${item.eip}</span>` : ''}<span class="cl-item-priority ${item.priority}">${item.priority}</span>${docLink}${resLink}</div></div></div>`;
     });
 
-    sections += `<div class="cl-section fade-up stagger-${Math.min(i+1,7)}" id="cl-${cl.id}"><div class="cl-header" onclick="toggleCLSection('${cl.id}')"><span class="cl-expand" aria-hidden="true">&#9654;</span><div class="cl-header-info"><div class="cl-header-title">${cl.title}</div><div class="cl-header-desc">${cl.desc}</div></div><div class="cl-header-meta"><div class="cl-progress-ring"><svg><circle class="track" cx="20" cy="20" r="17" /><circle class="fill" cx="20" cy="20" r="17" style="stroke-dasharray:${circ.toFixed(1)};stroke-dashoffset:${offset.toFixed(1)}" /></svg><div class="cl-progress-text">${pct}%</div></div></div></div><div class="cl-body"><div class="cl-body-inner"><div class="cl-items">${items}</div><div class="cl-agent-bar"><div class="cl-agent-bar-text"><strong>AI Agent:</strong> Point your coding agent to <code>checklists/${cl.id}/SKILL.md</code></div><button class="cl-dl-btn" onclick="event.stopPropagation();downloadSkill('${cl.id}')">Download</button></div></div></div></div>`;
+    sections += `<div class="cl-section fade-up stagger-${Math.min(i+1,7)}" id="cl-${cl.id}"><div class="cl-header" onclick="toggleCLSection('${cl.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCLSection('${cl.id}')}" role="button" tabindex="0" aria-expanded="false"><span class="cl-expand" aria-hidden="true">&#9654;</span><div class="cl-header-info"><div class="cl-header-title">${cl.title}</div><div class="cl-header-desc">${cl.desc}</div></div><div class="cl-header-meta"><div class="cl-progress-ring"><svg><circle class="track" cx="20" cy="20" r="17" /><circle class="fill" cx="20" cy="20" r="17" style="stroke-dasharray:${circ.toFixed(1)};stroke-dashoffset:${offset.toFixed(1)}" /></svg><div class="cl-progress-text">${pct}%</div></div></div></div><div class="cl-body"><div class="cl-body-inner"><div class="cl-items">${items}</div><div class="cl-agent-bar"><div class="cl-agent-bar-text"><strong>AI Agent:</strong> Point your coding agent to <code>checklists/${cl.id}/SKILL.md</code></div><button class="cl-dl-btn" onclick="event.stopPropagation();downloadSkill('${cl.id}')">Download</button></div></div></div></div>`;
   });
 
   return `
@@ -301,9 +313,9 @@ function renderChecklists() {
     <main id="main-content">
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div class="section-eyebrow">Reference</div>
-        <div class="section-title">Solutions</div>
+        <h2 class="section-title">Solutions</h2>
         <div class="section-desc">${tp} patterns across ${DATA.checklists.length} solutions. Tick items off as you implement them. Your progress is saved locally. Each solution also ships as an agent-readable SKILL.md.</div>
-        <div style="display:flex;gap:40px;margin-bottom:40px;">
+        <div style="display:flex;gap:20px;margin-bottom:32px;flex-wrap:wrap;">
           <div><div class="stat-value">${DATA.checklists.length}</div><div class="stat-label">Solutions</div></div>
           <div><div class="stat-value">${tp}</div><div class="stat-label">Patterns</div></div>
           <div><div class="stat-value accent">${ts}+</div><div class="stat-label">Standards</div></div>
@@ -311,9 +323,9 @@ function renderChecklists() {
         <div class="cl-accordion">${sections}</div>
         <div class="section" style="margin-top:64px;">
           <div class="section-eyebrow">Recipes</div>
-          <div class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Which solutions to combine</div>
+          <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Which solutions to combine</h2>
           <div class="section-desc">Most features touch multiple solutions. Here's which to combine:</div>
-          <div style="border:1px solid var(--border);background:var(--bg-panel-solid);padding:24px;border-radius:12px;color:var(--text);">
+          <div style="border:1px solid var(--border);background:var(--bg-panel-solid);padding:24px;border-radius:12px;color:var(--text);overflow-x:auto;">
             <table class="recipe-table"><thead><tr><th>Feature</th><th>Primary</th><th>Also Read</th></tr></thead><tbody>
               <tr><td>Swap interface</td><td><span class="eip-tag">approvals</span></td><td>signing, gas, onboarding</td></tr>
               <tr><td>Send tokens</td><td><span class="eip-tag">safety</span></td><td>gas, multichain</td></tr>
@@ -358,7 +370,7 @@ function renderInsights() {
     <main id="main-content">
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div class="section-eyebrow">Research</div>
-        <div class="section-title">Insights</div>
+        <h2 class="section-title">Insights</h2>
         <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
         <div class="insight-grid" style="margin-top:32px;">
           <a href="#/chasm" class="insight-card">
@@ -662,7 +674,7 @@ function renderAgents() {
     <main id="main-content">
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div class="section-eyebrow">For AI Coding Agents</div>
-        <div class="section-title">SKILL.md Files</div>
+        <h2 class="section-title">SKILL.md Files</h2>
         <div class="section-desc" style="margin-bottom:32px;">Each SKILL.md is a structured markdown file your AI coding agent can read to implement Ethereum UX patterns correctly. Point your agent to the file path and it gets decision trees, code examples, NEVER/ALWAYS rules, and wallet support data.</div>
 
         <div class="agents-hero-box">
@@ -678,7 +690,7 @@ function renderAgents() {
 
         <div class="section" style="margin-top:64px;">
           <div class="section-eyebrow">How it works</div>
-          <div class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Integration Guide</div>
+          <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Integration Guide</h2>
           <div style="display:flex;flex-direction:column;gap:2px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
             <div style="background:var(--bg-panel-solid);padding:24px 28px;"><div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">Step 1</div><div style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:4px;">Download or point to the SKILL.md</div><div style="font-size:0.9rem;color:var(--text-dim);">Add the file to your project root or reference the URL. Most AI agents (Cursor, Claude Code, GitHub Copilot) can read markdown files as context.</div></div>
             <div style="background:var(--bg-panel-solid);padding:24px 28px;"><div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">Step 2</div><div style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:4px;">Tell your agent to follow it</div><div style="font-size:0.9rem;color:var(--text-dim);">Prompt: "Follow the UX patterns in checklists/gas/SKILL.md when implementing this feature." The agent reads the decision tree and applies the correct pattern.</div></div>
@@ -712,11 +724,33 @@ function toggleProblem(catId, index) {
 }
 function toggleCrit(index) {
   const el = document.getElementById(`crit-${index}`);
-  if (el) { el.classList.toggle('open'); }
+  if (!el) return;
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.crit-card.open').forEach(c => {
+    c.classList.remove('open');
+    const b = c.querySelector('.crit-detail');
+    if (b) b.style.maxHeight = '';
+    const ci = c.querySelector('.crit-item');
+    if (ci) ci.setAttribute('aria-expanded', 'false');
+  });
+  if (!wasOpen) {
+    el.classList.add('open');
+    const body = el.querySelector('.crit-detail');
+    if (body) body.style.maxHeight = body.scrollHeight + 'px';
+    const ci = el.querySelector('.crit-item');
+    if (ci) ci.setAttribute('aria-expanded', 'true');
+  }
 }
 function toggleCLSection(id) {
   const el = document.getElementById(`cl-${id}`);
-  if (el) { el.classList.toggle('open'); }
+  if (!el) return;
+  const body = el.querySelector('.cl-body');
+  el.classList.toggle('open');
+  if (body) {
+    body.style.maxHeight = el.classList.contains('open') ? body.scrollHeight + 'px' : '';
+  }
+  const header = el.querySelector('.cl-header');
+  if (header) header.setAttribute('aria-expanded', el.classList.contains('open'));
 }
 function getCheckedItems() {
   try { return JSON.parse(localStorage.getItem('ethux-checked') || '{}'); } catch(e) { return {}; }
@@ -731,6 +765,7 @@ function toggleCheckItem(guideId, idx) {
   if (item && cb) {
     item.classList.toggle('done');
     cb.classList.toggle('checked');
+    cb.setAttribute('aria-checked', cb.classList.contains('checked') ? 'true' : 'false');
   }
   updateCLProgress(guideId);
 }
@@ -793,9 +828,15 @@ let successTimeout = null;
 
 function router() {
   if (successTimeout) { clearTimeout(successTimeout); successTimeout=null; }
+  const mobileNav = document.querySelector('.nav-links');
+  if (mobileNav) mobileNav.classList.remove('open');
+  const hamburger = document.querySelector('.nav-hamburger');
+  if (hamburger) hamburger.setAttribute('aria-expanded', 'false');
   const hash = window.location.hash.slice(1) || '/';
   const app = document.getElementById('app');
   app.classList.remove('ready');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const delay = reduceMotion ? 0 : 120;
   setTimeout(() => {
     let html='';
     let scrollToChecklist = null;
@@ -817,7 +858,7 @@ function router() {
       document.querySelectorAll('.progress-fill[data-width]').forEach(el=>{requestAnimationFrame(()=>{el.style.width=el.dataset.width;});});
       app.classList.add('ready');
     });
-  }, 120);
+  }, delay);
 }
 
 document.addEventListener('click', (e) => {
