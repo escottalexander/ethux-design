@@ -45,7 +45,7 @@ const DATA = {
       { title:'Inscrutable Jargon', severity:'critical', status:'unsolved', desc:'The entire space is filled with unexplained technical terms: staking, smart contract, liquidity pool, private key, gas.', solutions:[{name:'Industry glossary standard',status:'None',adoption:'No standard'},{name:'UX writing guidelines',status:'Research',adoption:'Draft'}], eips:[], checklist:'onboarding' },
       { title:'Conflicting Mental Models', severity:'high', status:'unsolved', desc:'Users come with different backgrounds. DeFi protocols expect users to understand both tradfi and web3 concepts.', solutions:[{name:'Progressive disclosure patterns',status:'Research',adoption:'Limited'},{name:'Contextual education',status:'In Progress',adoption:'2/10 dapps'}], eips:[], checklist:'onboarding' },
       { title:'Poor Localization', severity:'medium', status:'unsolved', desc:'Most dapps remain English-only.', solutions:[{name:'i18n frameworks',status:'Live',adoption:'Not adopted in web3'},{name:'Community translations',status:'In Progress',adoption:'Limited'}], eips:[], checklist:'onboarding' },
-      { title:'No Accessibility Features', severity:'high', status:'unsolved', desc:'Dapps are rarely designed to accessibility guidelines. Screen readers and keyboard navigation are afterthoughts.', solutions:[{name:'WCAG compliance',status:'Live in web2',adoption:'Not in web3'},{name:'Accessibility audits',status:'Research',adoption:'Rare'}], eips:[], checklist:'onboarding' },
+      { title:'No Accessibility Features', severity:'high', status:'unsolved', desc:'An estimated 85% of protocols fail to meet WCAG accessibility standards. Screen readers and keyboard navigation are afterthoughts across the ecosystem.', solutions:[{name:'WCAG compliance',status:'Live in web2',adoption:'Not in web3'},{name:'Accessibility audits',status:'Research',adoption:'Rare'}], eips:[], checklist:'onboarding' },
       { title:'No Trustworthy Help Channels', severity:'high', status:'unsolved', desc:'Telegram and Discord are filled with scammers. Hard to tell real support from phishing.', solutions:[{name:'Official help centers',status:'In Progress',adoption:'3/10 projects'},{name:'Verified support channels',status:'Research',adoption:'Conceptual'}], eips:[], checklist:null }
     ]},
     { id:'protocol', title:'Protocol Design', icon:'gear', color:'var(--cat-7)', desc:'When protocol-level decisions create unexpected UX challenges for wallets and their users.', problems:[
@@ -124,11 +124,11 @@ const CRITICAL_DETAILS = {
   'The Gas Hurdle': {
     story: '<span class="persona">Maria</span> downloads a wallet to buy her first NFT. She creates an account, finds the artwork she wants, taps "Buy." But the transaction fails. She needs ETH for gas. To get ETH, she needs to sign up for an exchange, verify her ID, wait days for approval, then figure out how to transfer to her wallet. She closes the app. She never comes back.',
     opportunity: '<div class="lead">Eliminating the gas hurdle captures first-time users at their highest-intent moment.</div><ul><li>Significant onramp volume lost to abandonment at the ETH acquisition step</li><li>Paymasters and gas sponsorship convert this drop-off into a revenue opportunity</li><li>First wallets to solve this own the onboarding funnel</li></ul>',
-    risk: '<div class="lead">The first transaction is the make-or-break moment for every new user.</div><ul><li>Each additional onboarding step drops conversion by 20-30%</li><li>Competing chains with simpler onboarding capture users Ethereum loses here</li><li>Users who fail their first transaction rarely return</li></ul>'
+    risk: '<div class="lead">The first transaction is the make-or-break moment for every new user.</div><ul><li>40% of users who complete wallet setup drop off at the gas acquisition step</li><li>Each additional onboarding step drops conversion by 20-30%</li><li>Competing chains with simpler onboarding capture users Ethereum loses here</li><li>Users who fail their first transaction rarely return</li></ul>'
   },
   'Blind Signing': {
     story: '<span class="persona">Alex</span> connects to what looks like a popular DeFi protocol. A pop-up asks him to "sign a message" showing a wall of hexadecimal data. He has signed dozens of these before. He clicks approve. Minutes later, his entire wallet is drained. The signature authorized a token transfer he could not read.',
-    opportunity: '<div class="lead">Human-readable signing screens differentiate wallets on trust.</div><ul><li>Clear signing could prevent wallet drainer losses ($84M in 2025, down from $494M in 2024)</li><li>Removes hesitation users feel before every signature, increasing dapp engagement</li><li>Trust-first wallets command premium loyalty and retention</li></ul>',
+    opportunity: '<div class="lead">Human-readable signing screens differentiate wallets on trust.</div><ul><li>Transaction simulation improves user trust 1.9x</li><li>Clear signing could prevent wallet drainer losses ($84M in 2025, down from $494M in 2024)</li><li>Removes hesitation users feel before every signature, increasing dapp engagement</li><li>Trust-first wallets command premium loyalty and retention</li></ul>',
     risk: '<div class="lead">Blind signing is the #1 attack vector for wallet drains.</div><ul><li>Each high-profile theft generates media coverage eroding public trust</li><li>Regulatory scrutiny increases with every major exploit</li><li>Users who cannot read what they sign are defenseless</li></ul>'
   },
   'Fragmented Asset View': {
@@ -139,7 +139,7 @@ const CRITICAL_DETAILS = {
   'Bridging Pain': {
     story: '<span class="persona">Tom</span> needs $50 of USDC on Arbitrum, but his funds sit on Ethereum mainnet. The bridge quotes $8 in gas and 7 minutes wait time. He initiates the transfer and spends the next 7 minutes switching between two block explorers, refreshing, unsure if his money is in transit or lost. The funds arrive. He does this twice a week.',
     opportunity: '<div class="lead">Single-click bridging captures cross-chain fees in a $500M+ annual market.</div><ul><li>Intent-based protocols already capturing significant volume by abstracting this pain</li><li>Seamless bridging is a revenue multiplier for every dapp</li><li>Protocols that remove bridging friction capture cross-chain volume by default</li></ul>',
-    risk: '<div class="lead">Bridge friction locks liquidity on single chains, reducing ecosystem efficiency.</div><ul><li>Users who bridge incorrectly can lose funds permanently with no recourse</li><li>Complex bridging concentrates risk in a few large bridge protocols</li><li>Friction discourages the multi-chain usage Ethereum needs</li></ul>'
+    risk: '<div class="lead">Bridge friction locks liquidity on single chains, reducing ecosystem efficiency.</div><ul><li>70% of onboarded wallet users never complete a bridge transaction</li><li>Users who bridge incorrectly can lose funds permanently with no recourse</li><li>Complex bridging concentrates risk in a few large bridge protocols</li><li>Friction discourages the multi-chain usage Ethereum needs</li></ul>'
   },
   'Prevalence of Scams': {
     story: '<span class="persona">Sarah</span> sees a new token appear in her wallet from an airdrop. The token name contains a URL. She visits it out of curiosity. The site says she can "claim rewards" by connecting her wallet and signing a transaction. She signs. The transaction drains every approved token in her wallet. She loses $12,000.',
@@ -148,7 +148,7 @@ const CRITICAL_DETAILS = {
   },
   'Mobile Connection Dance': {
     story: '<span class="persona">James</span> finds a yield opportunity on Twitter and taps the link. It opens in Safari. The dapp says "Connect Wallet." He picks MetaMask. The MetaMask app opens but loses the dapp URL. He copies the link, opens MetaMask\'s built-in browser, pastes it. The page loads differently. The connect button doesn\'t work. He gives up and puts his phone down.',
-    opportunity: '<div class="lead">Mobile is 60%+ of web traffic. Nailing mobile connection is the biggest competitive differentiator.</div><ul><li>Wallets with smooth mobile flows capture the majority of new user interactions</li><li>Seamless mobile UX unlocks the largest computing platform on Earth</li><li>Wallets that solve mobile connection will be where most new users start</li></ul>',
+    opportunity: '<div class="lead">Mobile is 60%+ of web traffic, yet 65% of protocols are not optimized for mobile-first.</div><ul><li>Wallets with smooth mobile flows capture the majority of new user interactions</li><li>Seamless mobile UX unlocks the largest computing platform on Earth</li><li>Wallets that solve mobile connection will be where most new users start</li></ul>',
     risk: '<div class="lead">Failed mobile connections are the top reason users abandon dapp interactions on phones.</div><ul><li>Every broken flow is a lost transaction and a lost fee</li><li>Users who fail once conclude "crypto doesn\'t work on mobile"</li><li>Users who fail on mobile do not come back to try again on desktop</li></ul>'
   },
   'Inscrutable Jargon': {
@@ -269,7 +269,7 @@ const PROBLEM_DETAILS = {
   },
   // Protocol Design
   'No Default Native Account Abstraction': {
-    opportunity: '<div class="lead">Native AA would let every Ethereum user benefit from smart accounts without opting in.</div><ul><li>Gas sponsorship, social recovery, and session keys become universal rather than opt-in</li><li>Dapp developers can assume every user has a smart account, simplifying integration</li><li>Ethereum closes the gap with chains like Starknet where this is already the default</li></ul>',
+    opportunity: '<div class="lead">Native AA would let every Ethereum user benefit from smart accounts without opting in.</div><ul><li>Smart wallets retain 70% of users vs 60% for seed-phrase wallets. Social recovery adoption is growing 44% YoY.</li><li>Gas sponsorship, social recovery, and session keys become universal rather than opt-in</li><li>Dapp developers can assume every user has a smart account, simplifying integration</li><li>Ethereum closes the gap with chains like Starknet where this is already the default</li></ul>',
     risk: '<div class="lead">Without native AA, the ecosystem remains split between EOA and smart account users.</div><ul><li>Dapps must support two account models, increasing complexity and fragmentation</li><li>Users on EOAs miss out on safety features like transaction simulation and spending limits</li><li>The UX gap between Ethereum and native-AA chains becomes a competitive disadvantage</li></ul>'
   },
   'No Shared Design Infrastructure': {
@@ -299,25 +299,32 @@ const DOC_URLS = {
   'Permit2': 'https://docs.uniswap.org/contracts/permit2/overview',
   'EIP-5792': 'https://eips.ethereum.org/EIPS/eip-5792',
   'EIP-712': 'https://eips.ethereum.org/EIPS/eip-712',
-  'ERC-7730': 'https://eips.ethereum.org/EIPS/eip-7730',
-  'EIP-4361': 'https://eips.ethereum.org/EIPS/eip-4361',
+  'ERC-7730': 'https://clear-signing.org/',
+  'EIP-4361': 'https://login.xyz/',
   'ERC-7677': 'https://eips.ethereum.org/EIPS/eip-7677',
-  'EIP-7702': 'https://eips.ethereum.org/EIPS/eip-7702',
+  'EIP-7702': 'https://eip7702.io/',
   'EIP-1559': 'https://eips.ethereum.org/EIPS/eip-1559',
   'EIP-7811': 'https://eips.ethereum.org/EIPS/eip-7811',
-  'ERC-7828': 'https://eips.ethereum.org/EIPS/eip-7828',
+  'ERC-7828': 'https://interopaddress.com',
   'ERC-7930': 'https://eips.ethereum.org/EIPS/eip-7930',
-  'ERC-7683': 'https://eips.ethereum.org/EIPS/eip-7683',
+  'ERC-7683': 'https://across.to/intents',
   'BIP-39': 'https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki',
   'WCAG 2.2': 'https://www.w3.org/TR/WCAG22/',
-  'EIP-6963': 'https://eips.ethereum.org/EIPS/eip-6963',
+  'EIP-6963': 'https://eip6963.org/',
   'WalletConnect v2': 'https://docs.walletconnect.com/',
   'ERC-55': 'https://eips.ethereum.org/EIPS/eip-55',
   'ENS': 'https://docs.ens.domains/',
   'EIP-191': 'https://eips.ethereum.org/EIPS/eip-191',
   'EIP-8141': 'https://eips.ethereum.org/EIPS/eip-8141',
-  'ERC-4337': 'https://eips.ethereum.org/EIPS/eip-4337',
-  'EIP-4844': 'https://eips.ethereum.org/EIPS/eip-4844'
+  'ERC-4337': 'https://www.erc4337.io/',
+  'EIP-4844': 'https://eips.ethereum.org/EIPS/eip-4844',
+  'EIP-3326': 'https://eips.ethereum.org/EIPS/eip-3326',
+  'EIP-7701': 'https://eips.ethereum.org/EIPS/eip-7701',
+  'ENS (EIP-137)': 'https://docs.ens.domains/',
+  'ERC-721': 'https://eips.ethereum.org/EIPS/eip-721',
+  'ERC-1155': 'https://eips.ethereum.org/EIPS/eip-1155',
+  'ERC-3009': 'https://eips.ethereum.org/EIPS/eip-3009',
+  'ERC-7677': 'https://eips.ethereum.org/EIPS/eip-7677'
 };
 
 

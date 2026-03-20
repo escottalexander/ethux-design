@@ -128,7 +128,7 @@ function toggleMobileNav() {
 }
 
 function renderFooter() {
-  return `<div class="container"><footer class="footer"><div class="footer-text"><strong>EthUX</strong> &mdash; Open source UX research. <a href="https://github.com/ethereum/ux" target="_blank" rel="noopener noreferrer">GitHub</a> &middot; <a href="mailto:ux@ethereum.org">ux@ethereum.org</a></div><div class="footer-issue">Issue 02 / Feb 2026</div></footer></div>`;
+  return '';
 }
 
 function renderHome() {
@@ -152,45 +152,44 @@ function renderHome() {
 
   let guideCards = '';
   DATA.checklists.forEach(cl => {
-    guideCards += `<a href="#/checklists/${cl.id}" class="guide-card" style="text-decoration:none;color:inherit;display:block;"><div class="guide-card-title">${cl.title}<span class="guide-format-badges"><span class="guide-format human">UI Checklist</span><span class="guide-format agent">Agent MD</span></span></div><div class="guide-card-desc">${cl.desc}</div><div class="guide-tags"><span class="guide-tag">${cl.patterns} patterns</span>${(cl.standards||[]).map(s=>`<span class="guide-tag">${s}</span>`).join('')}</div></a>`;
+    const tags = (cl.standards||[]).map(s => `<span class="guide-tag-pill">${s}</span>`).join('');
+    guideCards += `<a href="#/checklists/${cl.id}" class="guide-card-v2"><div class="guide-card-v2-header"><span class="guide-card-v2-title">${cl.title}</span><span class="guide-card-v2-patterns">${cl.patterns} patterns</span></div><div class="guide-card-v2-desc">${cl.desc}</div><div class="guide-card-v2-tags">${tags}</div></a>`;
   });
 
   return `
-    ${renderNav('map')}
+    ${renderNav('')}
     <main id="main-content">
       <div class="container">
         <section class="hero">
-          <div class="hero-eyebrow">UX Observatory</div>
           <h1 class="hero-title">Mapping<br><span class="accent">Ethereum UX</span></h1>
           <p class="hero-desc"><a href="#/chasm" class="hero-desc-link">What got us here won't get us there.</a> Early adopters adopt for different reasons than majority adopters.</p>
           <p class="hero-desc" style="margin-top:8px;">A living catalog of the UX improvements that will take blockchain applications from early adopters to their next million users.</p>
           <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
-            <a href="#/category/getting-started" class="hero-cta">Explore UX Map ${ICONS.arrow}</a>
+            <a href="#" class="hero-cta" onclick="event.preventDefault();document.getElementById('ux-map').scrollIntoView({behavior:'smooth'})">Browse Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
             <a href="#/checklists" class="hero-cta" style="background:none;color:var(--amber);padding-left:0;">Explore Solutions ${ICONS.arrow}</a>
           </div>
         </section>
       </div>
 
       <div class="container">
-        <div class="stats-bar">
-          <div class="stat-cell"><div class="stat-value">${stats.total}</div><div class="stat-label">Issues Tracked</div></div>
-          <div class="stat-cell"><div class="stat-value accent">${stats.inProgress}</div><div class="stat-label">Being Solved</div></div>
-          <div class="stat-cell"><div class="stat-value">${DATA.checklists.length}</div><div class="stat-label">Solutions</div></div>
-        </div>
-      </div>
-
-      <div class="container">
-        <section class="section">
-          <div class="section-eyebrow">Categories</div>
-          <h2 class="section-title">UX Map</h2>
-          <div class="section-desc">${stats.total} UX issues organized across 8 categories. Each tracks severity, solution progress, and adoption across the wallet ecosystem. Click any category to explore.</div>
+        <section class="section" id="ux-map">
+          <div class="section-eyebrow section-eyebrow--muted">Browse All</div>
+          <h2 class="section-title section-title--sm">Explore All ${stats.total} Issues</h2>
+          <div class="section-desc">The full problem map, organized by category.</div>
           <div class="cat-grid">${catCards}</div>
         </section>
 
         <section class="section">
-          <div class="section-eyebrow">Research</div>
+          <div class="section-eyebrow">For Builders</div>
+          <h2 class="section-title">Implementation Guides</h2>
+          <div class="section-desc">Each guide is a pattern checklist with EIP references, priority levels, and real adoption data. Use them in design reviews or feed them to your AI coding agent.</div>
+          <div class="guide-grid-v2">${guideCards}</div>
+        </section>
+
+        <section class="section">
+          <div class="section-eyebrow section-eyebrow--muted">Research</div>
           <h2 class="section-title">Insights</h2>
-          <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
+          <div class="section-desc">Foundational UX frameworks from the CRADL research. How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
           <div class="insight-grid">
             <a href="#/chasm" class="insight-card">
               <div class="insight-card-eyebrow">Adoption</div>
@@ -208,14 +207,6 @@ function renderHome() {
               <div class="insight-card-desc">Ethereum serves two user mindsets. Separating investment and payment UX is a design opportunity.</div>
             </a>
           </div>
-        </section>
-
-        <section class="section">
-          <div class="section-eyebrow">For Builders</div>
-          <h2 class="section-title">Solutions</h2>
-          <div class="section-desc">Each solution ships as a UI checklist for design reviews and an agent-readable SKILL.md for AI coding assistants. Decision trees, code examples, and wallet support matrices included.</div>
-          <div class="guide-grid">${guideCards}</div>
-          <a href="#/checklists" class="btn btn-ghost" style="margin-top:24px;">All Solutions</a>
         </section>
 
         <div class="cta-section">
@@ -238,7 +229,7 @@ function renderCategory(catId) {
     let solRows = '';
     p.solutions.forEach(s => { solRows += `<tr><td>${s.name}</td><td>${solStatusBadge(s.status)}</td></tr>`; });
     let eipTags = '';
-    if (p.eips.length) { eipTags = `<div class="problem-eips"><span class="problem-eips-label">Related standards:</span>${p.eips.map(e=>`<span class="eip-tag">${e}</span>`).join('')}</div>`; }
+    if (p.eips.length) { eipTags = `<div class="problem-eips"><span class="problem-eips-label">Related standards:</span>${p.eips.map(e=>{ const url=getDocUrl(e); return url ? `<a class="eip-tag" href="${url}" target="_blank" rel="noopener noreferrer">${e}</a>` : `<span class="eip-tag">${e}</span>`; }).join('')}</div>`; }
     let clLink = '';
     if (p.checklist) { clLink = `<a class="problem-checklist-link" href="#/checklists">View ${p.checklist} solution &rarr;</a>`; }
     let metaGrid = '';
@@ -327,27 +318,7 @@ function renderChecklists() {
         <div class="section-eyebrow">Reference</div>
         <h2 class="section-title">Solutions</h2>
         <div class="section-desc">${tp} patterns across ${DATA.checklists.length} solutions. Tick items off as you implement them. Your progress is saved locally. Each solution also ships as an agent-readable SKILL.md.</div>
-        <div style="display:flex;gap:20px;margin-bottom:32px;flex-wrap:wrap;">
-          <div><div class="stat-value">${DATA.checklists.length}</div><div class="stat-label">Solutions</div></div>
-          <div><div class="stat-value">${tp}</div><div class="stat-label">Patterns</div></div>
-          <div><div class="stat-value accent">${ts}+</div><div class="stat-label">Standards</div></div>
-        </div>
         <div class="cl-accordion">${sections}</div>
-        <div class="section" style="margin-top:64px;">
-          <div class="section-eyebrow">Recipes</div>
-          <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Which solutions to combine</h2>
-          <div class="section-desc">Most features touch multiple solutions. Here's which to combine:</div>
-          <div style="border:1px solid var(--border);background:var(--bg-panel-solid);padding:24px;border-radius:12px;color:var(--text);overflow-x:auto;">
-            <table class="recipe-table"><thead><tr><th>Feature</th><th>Primary</th><th>Also Read</th></tr></thead><tbody>
-              <tr><td>Swap interface</td><td><span class="eip-tag">approvals</span></td><td>signing, gas, onboarding</td></tr>
-              <tr><td>Send tokens</td><td><span class="eip-tag">safety</span></td><td>gas, multichain</td></tr>
-              <tr><td>Bridge assets</td><td><span class="eip-tag">multichain</span></td><td>gas, signing</td></tr>
-              <tr><td>Onboard new users</td><td><span class="eip-tag">onboarding</span></td><td>wallets, gas</td></tr>
-              <tr><td>Wallet connection</td><td><span class="eip-tag">wallets</span></td><td>onboarding, safety</td></tr>
-              <tr><td>DeFi deposit/stake</td><td><span class="eip-tag">approvals</span></td><td>signing, gas</td></tr>
-            </tbody></table>
-          </div>
-        </div>
       </div>
       ${renderFooter()}
     </main>`;
@@ -383,7 +354,7 @@ function renderInsights() {
       <div class="container" style="padding-top:80px;min-height:100vh;">
         <div class="section-eyebrow">Research</div>
         <h2 class="section-title">Insights</h2>
-        <div class="section-desc">Foundational UX frameworks from the CRADL research (2022). How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
+        <div class="section-desc">Foundational UX frameworks from the CRADL research. How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
         <div class="insight-grid" style="margin-top:32px;">
           <a href="#/chasm" class="insight-card">
             <div class="insight-card-eyebrow">Adoption</div>
@@ -446,6 +417,17 @@ function renderChasm() {
             </div>
           </div>
 
+          <div class="evidence-callout">
+            <div class="evidence-callout-title">Where we are</div>
+            <div class="evidence-stats">
+              <div class="evidence-stat"><div class="evidence-stat-value">13%</div><div class="evidence-stat-label">of Americans say crypto wallets are easy to use</div></div>
+              <div class="evidence-stat"><div class="evidence-stat-value">87%</div><div class="evidence-stat-label">of new wallet users leave within the first week</div></div>
+              <div class="evidence-stat"><div class="evidence-stat-value">80%+</div><div class="evidence-stat-label">of US adults use Venmo or Zelle. Fewer than 1 in 10 use crypto for payments.</div></div>
+              <div class="evidence-stat"><div class="evidence-stat-value">716M</div><div class="evidence-stat-label">people own crypto. Fewer than 70M use it actively onchain.</div></div>
+            </div>
+            <div class="evidence-sources">Sources: Mercuryo/Protocol Theory (2025); Federal Reserve (2024); The Protocol Report (2026)</div>
+          </div>
+
           <h2>Why Early Adopter UX Doesn't Scale</h2>
           <p>Early adopters are willing to tolerate friction. They're motivated by ideology, speculation, or technical curiosity. They'll learn seed phrases, navigate gas fees, and debug failed transactions because the payoff justifies the pain.</p>
           <p>The majority adopter is different. They need things to "just work." They won't read documentation, won't troubleshoot, and won't forgive a single catastrophic error. The UX that got Ethereum to 10 million users will not get it to 100 million.</p>
@@ -464,6 +446,7 @@ function renderChasm() {
           <p>For majority adopters, the gap between perceived safety and actual safety is where trust collapses. One bad experience, one lost transaction, and they're gone permanently.</p>
 
           <h2>What Majority Adopters Need</h2>
+          <p>Research shows two factors explain most of whether someone adopts a new wallet: <strong>perceived improvement over existing tools</strong> (44% of adoption variance) and <strong>compatibility with daily routines</strong> (24%). The question for builders is straightforward: does your feature feel better than what people already use, and does it fit how they already manage money? <span class="evidence-inline-source">(Mercuryo/Protocol Theory, 2025)</span></p>
           <ul>
             <li><strong>Reversibility by default.</strong> Cancel, undo, or at minimum a clear warning before anything irreversible happens.</li>
             <li><strong>Progressive disclosure.</strong> Don't front-load complexity. Show advanced options only when needed.</li>
