@@ -139,7 +139,7 @@ function renderHome() {
   DATA.categories.forEach((cat, i) => {
     const s = getCategoryStats(cat);
     const num = String(i + 1).padStart(2, '0');
-    catCards += `<div class="cat-card fade-up stagger-${Math.min(i+1,12)}" style="--cat-color:${cat.color};" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-title">${cat.title}</div><div class="cat-card-bottom"><div class="cat-card-count">${s.total} issues</div></div></div>`;
+    catCards += `<div class="cat-card fade-up stagger-${Math.min(i+1,12)}" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-title">${cat.title}</div><div class="cat-card-bottom"><div class="cat-card-count">${s.total} issues</div></div></div>`;
   });
 
 
@@ -166,22 +166,28 @@ function renderHome() {
 
       <div class="container">
         <section class="section" id="ux-map">
-          <div class="section-eyebrow section-eyebrow--muted">Browse All</div>
-          <h2 class="section-title section-title--sm">Explore All ${stats.total} Issues</h2>
-          <div class="section-desc">The full problem map, organized by category.</div>
+          <div class="section-eyebrow">Categories</div>
+          <h2 class="section-title">${stats.total} Issues Across 8 Categories</h2>
+          <div class="section-desc">The full problem map. Click any category to explore severity, solutions, and wallet adoption.</div>
           <div class="cat-grid">${catCards}</div>
         </section>
+      </div>
 
-        <section class="section">
-          <div class="section-eyebrow">For Builders</div>
-          <h2 class="section-title">Implementation Guides</h2>
-          <div class="section-desc">Each guide is a pattern checklist with EIP references, priority levels, and real adoption data. Use them in design reviews or feed them to your AI coding agent.</div>
-          <div class="guide-grid-v2">${guideCards}</div>
-        </section>
+      <div class="section-band">
+        <div class="container">
+          <section class="section">
+            <div class="section-eyebrow">For Builders</div>
+            <h2 class="section-title section-title--sm">Implementation Guides</h2>
+            <div class="section-desc">Pattern checklists with EIP references, priority levels, and real adoption data. Use them in design reviews or feed them to your AI coding agent.</div>
+            <div class="guide-grid-v2">${guideCards}</div>
+          </section>
+        </div>
+      </div>
 
+      <div class="container">
         <section class="section">
-          <div class="section-eyebrow section-eyebrow--muted">Research</div>
-          <h2 class="section-title">Insights</h2>
+          <div class="section-eyebrow">Research</div>
+          <h2 class="section-title section-title--sm">Insights</h2>
           <div class="section-desc">Foundational UX frameworks from the CRADL research. How Ethereum UX can scale from early adopters to the mainstream, and what builders can do about it.</div>
           <div class="insight-grid">
             <a href="#/chasm" class="insight-card">
@@ -327,6 +333,7 @@ function renderAbout() {
           <p>EthUX is a living, community-sourced map of Ethereum's highest-impact UX issues, matched with the solutions being built to address them.</p>
           <p>The goal is to surface critical UX issues from the user's perspective, triage them, coordinate builders around solutions, and track adoption of solutions across the ecosystem.</p>
           <p>This is not a polished report. It's a collaborative, evolving tracker. Based on research from <strong>14,900+ real Ethereum user stories</strong>.</p>
+          <p>Our work aligns with the Ethereum Foundation's CROPS principles: Censorship Resistance, Open source, Privacy, and Security. Every UX issue we track and every solution we recommend is evaluated through this lens.</p>
           <h2>Collaborate</h2>
           <p>Join the conversation on <a href="https://discord.gg/tFmDq3c7" target="_blank" rel="noopener noreferrer">Discord</a> to connect with designers, researchers, and builders working on Ethereum UX.</p>
           <h2>For AI Agents</h2>
