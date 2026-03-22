@@ -270,7 +270,7 @@ body {
 .hero-desc--secondary { margin-top: 8px; }
 .hero-cta svg { width: 14px; height: 14px; }
 
-.page-container { padding-top: 40px; min-height: 100vh; }
+.page-container { padding-top: 64px; min-height: 100vh; }
 
 
 
@@ -1458,7 +1458,7 @@ a.eip-tag:hover { text-decoration: underline; }
 .prose {
   max-width: 640px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 64px;
   min-height: 100vh;
 }
 .prose h1 {
