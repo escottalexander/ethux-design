@@ -212,6 +212,20 @@ body {
   padding-bottom: 200px;
   position: relative;
 }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: calc(-1 * (100vw - 100%) / 2);
+  width: 960px;
+  height: 640px;
+  background: url('hero-hands.png') no-repeat top right;
+  background-size: contain;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+}
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 8vw, 7rem);
@@ -255,16 +269,6 @@ body {
 
 .page-container { padding-top: 80px; min-height: 100vh; }
 
-/* Ambient glow behind hero */
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 60px; right: -100px;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: -1;
-}
 
 
 /* ==========================================================
@@ -336,32 +340,26 @@ body {
   flex-direction: column;
 }
 .cat-card:hover { background: var(--surface-hover); }
+.cat-card:hover .cat-card-icon { color: var(--cat-color); }
 .cat-card-icon {
   width: 24px;
   height: 24px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
+  color: var(--accent);
+  margin-bottom: 32px;
 }
 .cat-card-icon svg { width: 100%; height: 100%; }
-.cat-card:hover .cat-card-icon { color: var(--accent); }
 .cat-card-title {
   font-family: var(--font-body);
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text);
   line-height: 1.25;
-  margin-bottom: auto;
 }
-.cat-card-bottom {
-  margin-top: 20px;
-}
-.cat-card-count {
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 500;
+.cat-card-hook {
+  font-size: 0.875rem;
   color: var(--text-dim);
-  margin-bottom: 10px;
-  letter-spacing: 0.01em;
+  line-height: 1.45;
+  margin-top: 8px;
 }
 .cat-card-bar-wrap {
   display: flex;
@@ -929,11 +927,17 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   margin-bottom: 96px;
   background: linear-gradient(135deg, var(--accent-dim) 0%, transparent 60%);
 }
+.cta-headline {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
 .cta-text {
   font-size: 1rem;
   color: var(--text-dim);
 }
-.cta-text strong { color: var(--text); font-weight: 600; }
 
 /* ==========================================================
    BUTTONS
@@ -1012,21 +1016,21 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   display: flex; align-items: center; gap: 16px;
 }
 .cat-page-title svg { width: 32px; height: 32px; }
 .cat-page-desc {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 300;
   color: var(--text-dim);
-  max-width: 600px;
+  max-width: 640px;
   line-height: 1.7;
-  margin-bottom: 24px;
+  margin-bottom: 64px;
 }
 .cat-nav {
   display: flex; flex-wrap: wrap; gap: 6px;
-  margin-bottom: 24px;
+  margin-bottom: 64px;
 }
 .cat-nav-item {
   font-family: var(--font-body);
@@ -1042,39 +1046,14 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   text-decoration: none;
 }
 .cat-nav-item:hover {
-  color: var(--text);
-  border-color: var(--text-muted);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .cat-nav-item.active {
-  color: var(--text);
-  border-color: var(--text-muted);
+  color: var(--accent);
+  border-color: var(--accent);
   background: var(--bg-panel-solid);
   cursor: default;
-}
-.cat-progress-row {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 40px;
-}
-.progress-track {
-  width: 200px; height: 3px;
-  background: var(--border);
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  width: 0;
-  transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.cat-progress-pct {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text);
-}
-.cat-progress-stats {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
 }
 
 /* ==========================================================
@@ -1196,7 +1175,7 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 .sol-table tr:last-child td { border-bottom: none; }
 .sol-table tr:hover td { background: var(--surface-hover); }
 .sol-table th:last-child,
-.sol-table td:last-child { text-align: right; padding-right: 0; }
+.sol-table td:last-child { text-align: right; }
 .problem-eips {
   margin-top: 32px;
   display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
@@ -1475,43 +1454,44 @@ a.eip-tag:hover { text-decoration: underline; }
    ========================================================== */
 .prose {
   max-width: 640px;
+  margin: 0 auto;
   padding-top: 80px;
   min-height: 100vh;
 }
 .prose h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .prose .page-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   color: var(--text-dim);
-  margin-bottom: 40px;
-  line-height: 1.6;
+  margin-bottom: 64px;
+  line-height: 1.7;
 }
 .prose h2 {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 400;
   color: var(--text);
-  margin: 48px 0 16px;
+  margin: 64px 0 20px;
 }
 .prose h3 {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text);
-  margin: 32px 0 8px;
+  margin: 40px 0 12px;
 }
 .prose p {
-  font-size: 0.95rem;
+  font-size: 1.125rem;
   color: var(--text-dim);
-  line-height: 1.7;
-  margin-bottom: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
 }
 .prose blockquote {
   padding: 12px 20px;
@@ -1532,16 +1512,16 @@ a.eip-tag:hover { text-decoration: underline; }
 .prose ul li {
   position: relative;
   padding-left: 20px;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
+  margin-bottom: 12px;
+  font-size: 1.125rem;
   color: var(--text-dim);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 .prose ul li::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 9px;
+  top: 0.7em;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -1702,7 +1682,8 @@ a.eip-tag:hover { text-decoration: underline; }
   gap: 8px;
 }
 .paradigm-box.investing .paradigm-box-title { color: var(--accent); }
-.paradigm-box.transacting .paradigm-box-title { color: var(--green); }
+.paradigm-box.transacting .paradigm-box-title { color: var(--amber); }
+.prose .paradigm-box.transacting ul li::before { background: var(--amber); }
 .paradigm-box-title .paradigm-icon {
   width: 18px;
   height: 18px;
@@ -1720,6 +1701,7 @@ a.eip-tag:hover { text-decoration: underline; }
   line-height: 1.5;
 }
 .paradigm-box li:last-child { border-bottom: none; }
+.prose .paradigm-box ul li::before { top: calc(6px + 0.55em); }
 
 /* ==========================================================
    INSIGHT CARDS (HOME PAGE)
@@ -1745,23 +1727,23 @@ a.eip-tag:hover { text-decoration: underline; }
   border-color: var(--accent);
 }
 .insight-card-eyebrow {
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--purple);
+  color: var(--accent-secondary);
   margin-bottom: 8px;
 }
 .insight-card-title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.15rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text);
   margin-bottom: 8px;
   line-height: 1.25;
 }
 .insight-card-desc {
-  font-family: var(--font-display);
   font-size: 0.875rem;
   color: var(--text-dim);
   line-height: 1.7;
@@ -2197,6 +2179,7 @@ html.light .agents-hero-box code { background: rgba(0,0,0,0.06); }
   .nav-links-desktop { display: none; }
   .nav-hamburger { display: flex; margin-left: auto; }
   .hero { padding-top: 100px; padding-bottom: 96px; }
+  .hero::before { display: none; }
   .hero-title { font-size: clamp(2rem, 9vw, 3.5rem); margin-bottom: 20px; }
   .section { margin-bottom: 56px; }
   .cta-section { flex-direction: column; text-align: center; padding: 28px; margin-bottom: 48px; }

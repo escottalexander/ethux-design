@@ -141,7 +141,7 @@ function renderHome() {
   DATA.categories.forEach((cat, i) => {
     const s = getCategoryStats(cat);
     const num = String(i + 1).padStart(2, '0');
-    catCards += `<div class="cat-card" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-icon">${getIcon(cat.icon)}</div><div class="cat-card-title">${cat.title}</div><div class="cat-card-bottom"><div class="cat-card-count">${s.total} issues</div></div></div>`;
+    catCards += `<div class="cat-card" style="--cat-color:${cat.color}" role="button" tabindex="0" aria-label="View ${cat.title}" onclick="navigate('/category/${cat.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigate('/category/${cat.id}')}"><div class="cat-card-icon">${getIcon(cat.icon)}</div><div class="cat-card-title">${cat.title}</div><div class="cat-card-hook">${cat.hook || ''}</div></div>`;
   });
 
 
@@ -156,7 +156,7 @@ function renderHome() {
       <div class="container">
         <section class="hero">
           <h1 class="hero-title">Mapping<br><span class="accent">Ethereum UX</span></h1>
-          <p class="hero-desc"><a href="#/chasm" class="hero-desc-link">What got us here won't get us there.</a> Early adopters adopt for different reasons than majority adopters.</p>
+          <p class="hero-desc">Ethereum's infrastructure is a masterpiece of cryptography. Now, we must master the art of the interface.</p>
           <p class="hero-desc hero-desc--secondary">A living catalog of the UX improvements that will take blockchain applications from early adopters to their next million users.</p>
           <div class="hero-cta-group">
             <a href="#" class="hero-cta" onclick="event.preventDefault();document.getElementById('ux-map').scrollIntoView({behavior:'smooth'})">Browse Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
@@ -169,7 +169,7 @@ function renderHome() {
         <section class="section" id="ux-map">
           <div class="section-eyebrow reveal">The UX Map</div>
           <h2 class="section-title reveal">Opportunities for Growth</h2>
-          <div class="section-desc reveal">${stats.total} areas for improvement across 8 categories, sourced from 14,900+ real user stories. Each one is a chance to make Ethereum work better for the next wave of users.</div>
+          <div class="section-desc reveal">Sourced from 32,000+ real user stories collected by ethereum.org and the design community. Each one is a chance to make Ethereum work better for the next wave of users.</div>
           <div class="cat-grid reveal-grid">${catCards}</div>
         </section>
       </div>
@@ -201,8 +201,11 @@ function renderHome() {
         </section>
 
         <div class="cta-section">
-          <div class="cta-text"><strong>Seen something we missed?</strong> This map is built on real user stories. Yours could be next.</div>
-          <a href="#/submit" class="btn btn-primary">Share a UX Story</a>
+          <div class="cta-content">
+            <h3 class="cta-headline">Seen something we missed?</h3>
+            <div class="cta-text">Every item on this map started as one person's story. Share yours and help shape what builders fix next.</div>
+          </div>
+          <a href="#/submit" class="btn btn-primary">Add to the Map</a>
         </div>
       </div>
 
@@ -235,14 +238,9 @@ function renderCategory(catId) {
     <main id="main-content">
       <div class="container page-container">
         <a class="cat-back" href="#/">Back to map</a>
+        <div class="cat-nav">${catNav}</div>
         <div class="cat-page-title">${cat.title}</div>
         <div class="cat-page-desc">${cat.desc}</div>
-        <div class="cat-nav">${catNav}</div>
-        <div class="cat-progress-row">
-          <div class="progress-track" role="progressbar" aria-valuenow="${stats.progress}" aria-valuemin="0" aria-valuemax="100" aria-label="${cat.title} progress"><div class="progress-fill" style="background:${cat.color};" data-width="${stats.progress}%"></div></div>
-          <span class="cat-progress-pct">${stats.progress}%</span>
-          <span class="cat-progress-stats">${stats.inProgress+stats.research} active &middot; ${stats.unsolved} unsolved</span>
-        </div>
         <div class="problem-list">${cards}</div>
       </div>
       ${renderFooter()}
@@ -375,6 +373,7 @@ function renderChasm() {
     <main id="main-content">
       <div class="container">
         <div class="prose">
+          <a class="cat-back" href="#/">Back to home</a>
           <h1>The Chasm</h1>
           <p class="page-subtitle">How Ethereum UX can scale from early adopters to the mainstream.</p>
 
@@ -472,6 +471,7 @@ function renderOnboarding() {
     <main id="main-content">
       <div class="container">
         <div class="prose">
+          <a class="cat-back" href="#/">Back to home</a>
           <h1>Onboarding<br>Journey</h1>
           <p class="page-subtitle">Five stages between first curiosity and confident use. A framework for understanding where builders can have the most impact.</p>
 
@@ -558,6 +558,7 @@ function renderParadigms() {
     <main id="main-content">
       <div class="container">
         <div class="prose">
+          <a class="cat-back" href="#/">Back to home</a>
           <h1>Investing vs<br>Transacting</h1>
           <p class="page-subtitle">Ethereum serves two fundamentally different user mindsets. Mixing them in the same interface creates confusion and risk.</p>
 
