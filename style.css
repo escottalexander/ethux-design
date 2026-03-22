@@ -203,7 +203,8 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding-left: 48px;
+  padding-right: 48px;
 }
 
 /* ==========================================================
@@ -2175,7 +2176,7 @@ html.light .agents-hero-box code { background: rgba(0,0,0,0.06); }
    RESPONSIVE
    ========================================================== */
 @media (max-width: 768px) {
-  .container { padding: 0 20px; }
+  .container { padding-left: 20px; padding-right: 20px; }
   .nav-inner { padding: 0 20px; }
   .nav-wordmark { display: none; }
   .nav-links-desktop { display: none; }
@@ -2211,7 +2212,7 @@ html.light .agents-hero-box code { background: rgba(0,0,0,0.06); }
 }
 
 @media (max-width: 400px) {
-  .container { padding: 0 16px; }
+  .container { padding-left: 16px; padding-right: 16px; }
   .nav-inner { padding: 0 12px; }
 }
 
