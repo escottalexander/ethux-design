@@ -98,7 +98,6 @@ body {
   background: var(--bg);
   line-height: 1.6;
   overflow-x: hidden;
-  padding-top: var(--nav-height);
 }
 
 /* ==========================================================
@@ -211,7 +210,7 @@ body {
    HERO
    ========================================================== */
 .hero {
-  padding-top: 104px;
+  padding-top: calc(var(--nav-height) + 104px);
   padding-bottom: 200px;
   position: relative;
 }
@@ -270,7 +269,7 @@ body {
 .hero-desc--secondary { margin-top: 8px; }
 .hero-cta svg { width: 14px; height: 14px; }
 
-.page-container { padding-top: 64px; min-height: 100vh; }
+.page-container { padding-top: calc(var(--nav-height) + 40px); min-height: 100vh; }
 
 
 
@@ -1458,7 +1457,7 @@ a.eip-tag:hover { text-decoration: underline; }
 .prose {
   max-width: 640px;
   margin: 0 auto;
-  padding-top: 64px;
+  padding-top: calc(var(--nav-height) + 40px);
   min-height: 100vh;
 }
 .prose h1 {
@@ -2181,7 +2180,7 @@ html.light .agents-hero-box code { background: rgba(0,0,0,0.06); }
   .nav-wordmark { display: none; }
   .nav-links-desktop { display: none; }
   .nav-hamburger { display: flex; margin-left: auto; }
-  .hero { padding-top: 48px; padding-bottom: 64px; }
+  .hero { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; }
   .hero::before { display: none; }
   .hero-title { font-size: clamp(2rem, 9vw, 3.5rem); margin-bottom: 20px; }
   .section { margin-bottom: 56px; }
