@@ -79,7 +79,17 @@ function progressColor(pct) {
 }
 function severityBadge(s) { return `<span class="badge badge-${s}">${s}</span>`; }
 function statusBadge(s) { const l={'solved':'Solved','in-progress':'In Progress','unsolved':'Open','research':'Research'}; return `<span class="badge badge-${s}">${l[s]||s}</span>`; }
-function solStatusBadge(s) { const m={'Live':'solved','Ongoing':'in-progress','In Progress':'in-progress','Research':'research','None':'unsolved'}; return `<span class="badge badge-${m[s]||'unsolved'}">${s}</span>`; }
+const SOL_STATUS = {
+  'Live':{'cls':'solved','tip':'Shipped and usable today'},
+  'Final':{'cls':'solved','tip':'Standard finalized, adoption underway'},
+  'Building':{'cls':'in-progress','tip':'Teams actively building or shipping this'},
+  'Draft':{'cls':'research','tip':'Standard being drafted, not yet finalized'},
+  'Standard exists':{'cls':'research','tip':'Standard defined but not adopted by wallets'},
+  'Research':{'cls':'research','tip':'Early R&D, no implementation yet'},
+  'None':{'cls':'none','tip':'Nobody is working on this'},
+  'Live in web2':{'cls':'unsolved','tip':'Solved outside crypto, not adopted in web3'}
+};
+function solStatusTag(s) { const info = SOL_STATUS[s] || {cls:'unsolved',tip:''}; return `<span class="sol-tag sol-tag-${info.cls}">${s}<span class="sol-tag-tip" aria-label="${info.tip}"><svg class="sol-tag-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4"/><circle cx="8" cy="5" r="0.5" fill="currentColor" stroke="none"/></svg><span class="sol-tag-tooltip">${info.tip}</span></span></span>`; }
 
 
 // ===========================
@@ -223,7 +233,7 @@ function renderCategory(catId) {
   sortedProblems.forEach((p,i) => {
     const details = PROBLEM_DETAILS[p.title] || {};
     let solRows = '';
-    p.solutions.forEach(s => { solRows += `<tr><td>${s.name}</td><td>${solStatusBadge(s.status)}</td></tr>`; });
+    p.solutions.forEach(s => { const noOne = s.status === 'None'; solRows += `<tr${noOne?' class="sol-none"':''}><td>${s.name} ${solStatusTag(s.status)}</td><td class="sol-adoption">${s.adoption||''}</td></tr>`; });
     let eipTags = '';
     if (p.eips.length) { eipTags = `<div class="problem-eips"><span class="problem-eips-label">Related standards:</span>${p.eips.map(e=>{ const url=getDocUrl(e); return url ? `<a class="eip-tag" href="${url}" target="_blank" rel="noopener noreferrer">${e}</a>` : `<span class="eip-tag">${e}</span>`; }).join('')}</div>`; }
     let clLink = '';
@@ -232,7 +242,18 @@ function renderCategory(catId) {
     if (details.opportunity || details.risk) {
       metaGrid = `<div class="problem-meta-grid">${details.opportunity ? `<div class="problem-meta-box"><div class="problem-meta-label opp">Opportunity</div><div class="problem-meta-text">${details.opportunity}</div></div>` : ''}${details.risk ? `<div class="problem-meta-box"><div class="problem-meta-label risk">Risk of inaction</div><div class="problem-meta-text">${details.risk}</div></div>` : ''}</div>`;
     }
-    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" data-severity="${p.severity}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div><div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Status</th></tr></thead><tbody>${solRows}</tbody></table></div>${clLink}${metaGrid}${eipTags}</div></div></div>`;
+    let storyBlock = '';
+    if (details.story) {
+      const quotes = Array.isArray(details.story) ? details.story : [details.story];
+      if (quotes.length === 1) {
+        storyBlock = `<div class="quote-carousel"><div class="quote-slide active">${quotes[0]}</div></div>`;
+      } else {
+        const cid = `qc-${catId}-${i}`;
+        const slides = quotes.map((q,qi) => `<div class="quote-slide${qi===0?' active':''}">${q}</div>`).join('');
+        storyBlock = `<div class="quote-carousel" id="${cid}"><div class="quote-carousel-track">${slides}</div><div class="quote-carousel-nav"><button onclick="rotateQuote('${cid}',-1)" aria-label="Previous quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="quote-carousel-counter">1 / ${quotes.length}</span><button onclick="rotateQuote('${cid}',1)" aria-label="Next quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></div></div>`;
+      }
+    }
+    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" data-severity="${p.severity}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div>${storyBlock}<div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Adoption</th></tr></thead><tbody>${solRows}</tbody></table></div>${clLink}${metaGrid}${eipTags}</div></div></div>`;
   });
   let catNav = DATA.categories.map(c => c.id === catId ? `<span class="cat-nav-item active">${c.title}</span>` : `<a class="cat-nav-item" href="#/category/${c.id}">${c.title}</a>`).join('');
   return `
@@ -327,7 +348,7 @@ function renderAbout() {
           <p>This is not a polished report. It's a collaborative, evolving tracker. Based on research from <strong>32,000+ real Ethereum user stories</strong>.</p>
           <p>Our work aligns with the Ethereum Foundation's CROPS principles: Censorship Resistance, Open source, Privacy, and Security. Every UX issue we track and every solution we recommend is evaluated through this lens.</p>
           <h2>Collaborate</h2>
-          <p>Join the conversation on <a href="https://discord.gg/tFmDq3c7" target="_blank" rel="noopener noreferrer">Discord</a> to connect with designers, researchers, and builders working on Ethereum UX.</p>
+          <p>Join the conversation on <a href="https://discord.gg/X8A7SuZ8" target="_blank" rel="noopener noreferrer">Discord</a> to connect with designers, researchers, and builders working on Ethereum UX.</p>
           <h2>For AI Agents</h2>
           <p>Our solutions are designed to be consumed by AI coding agents. Each solution is a markdown file with YAML frontmatter, decision trees, and code examples.</p>
           <p>Browse available skills on the <a href="#/agents">AI Agents page</a>.</p>
@@ -696,6 +717,18 @@ function renderAgents() {
 // ===========================
 // INTERACTIONS
 // ===========================
+function rotateQuote(carouselId, dir) {
+  const el = document.getElementById(carouselId);
+  if (!el) return;
+  const slides = el.querySelectorAll('.quote-slide');
+  const counter = el.querySelector('.quote-carousel-counter');
+  let cur = 0;
+  slides.forEach((s,i) => { if (s.classList.contains('active')) cur = i; });
+  slides[cur].classList.remove('active');
+  cur = (cur + dir + slides.length) % slides.length;
+  slides[cur].classList.add('active');
+  if (counter) counter.textContent = `${cur + 1} / ${slides.length}`;
+}
 function toggleProblem(catId, index) {
   const el = document.getElementById(`problem-${catId}-${index}`);
   if (!el) return;

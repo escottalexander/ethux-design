@@ -1129,6 +1129,8 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 .badge-unsolved::before { background: var(--text-muted); }
 .badge-research { color: #4ac4c4; }
 .badge-research::before { background: #4ac4c4; }
+.badge-none { color: var(--red); font-weight: 700; }
+.badge-none::before { background: var(--red); }
 
 .problem-body {
   display: none;
@@ -1138,6 +1140,64 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 }
 .problem-content {
   padding: 0 32px 48px 32px;
+}
+/* Quote carousel */
+.quote-carousel {
+  margin: 0 0 32px 0;
+  position: relative;
+}
+.quote-carousel-track {
+  overflow: hidden;
+}
+.quote-slide {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+.quote-slide.active { display: block; }
+.quote-slide .quote-source {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+.quote-carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.quote-carousel-nav button {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: color var(--transition), border-color var(--transition);
+  padding: 0;
+}
+.quote-carousel-nav button:hover {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+.quote-carousel-nav button svg { width: 14px; height: 14px; }
+.quote-carousel-counter {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 .problem-desc {
   font-size: 1rem;
@@ -1171,7 +1231,7 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   text-align: left;
   padding: 10px 16px;
   border-bottom: 1px solid var(--border);
-  background: var(--surface);
+  background: rgba(8, 58, 243, 0.025);
 }
 .sol-table td {
   padding: 12px 16px;
@@ -1181,6 +1241,64 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 .sol-table tr:last-child td { border-bottom: none; }
 .sol-table th:last-child,
 .sol-table td:last-child { text-align: right; }
+.sol-adoption { font-size: 0.8rem; color: var(--text-muted); }
+.sol-none { background: var(--red-dim); }
+.sol-none .sol-adoption { color: var(--red); font-weight: 600; }
+
+/* Inline status tags */
+.sol-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-left: 8px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.sol-tag-solved { color: var(--green); background: var(--green-dim); }
+.sol-tag-in-progress { color: var(--amber); background: var(--amber-dim); }
+.sol-tag-research { color: var(--cyan); background: var(--cyan-dim); }
+.sol-tag-none { color: var(--red); background: var(--red-dim); }
+.sol-tag-unsolved { color: var(--text-muted); background: rgba(168,162,158,0.1); }
+
+/* Tooltip icon + popup */
+.sol-tag-tip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+}
+.sol-tag-icon {
+  width: 13px;
+  height: 13px;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
+}
+.sol-tag-tip:hover .sol-tag-icon { opacity: 1; }
+.sol-tag-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+.sol-tag-tip:hover .sol-tag-tooltip { display: block; }
 .problem-eips {
   margin-top: 32px;
   display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
