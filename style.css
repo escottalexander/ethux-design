@@ -1063,8 +1063,11 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 /* ==========================================================
    PROBLEM ACCORDION
    ========================================================== */
-.problem-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.problem-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); }
 .problem-card { background: var(--bg-panel-solid); }
+.problem-card:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.problem-card:last-child { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+.problem-card:first-child:last-child { border-radius: var(--radius-lg); }
 .problem-card.open { background: var(--bg-raised); }
 .problem-head {
   display: flex; align-items: center; gap: 16px;
