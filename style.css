@@ -29,7 +29,7 @@
   --border-light: rgba(28, 25, 23, 0.04);
   /* Text */
   --text: #1C1917;
-  --text-dim: #57534E;
+  --text-dim: #78716C;
   --text-muted: #A8A29E;
   /* Primary accent: Ethereum blue (matches logo) */
   --accent: #083AF3;
@@ -1088,13 +1088,29 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   margin-left: 8px;
 }
 .problem-card.open .problem-expand { transform: rotate(90deg); color: var(--accent); }
+.problem-title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
 .problem-title {
   font-family: var(--font-body);
   font-size: 1.3rem;
   font-weight: 700;
   color: var(--text);
-  flex: 1;
+  transition: color var(--transition);
 }
+.problem-excerpt {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.problem-head:hover .problem-title { color: var(--accent); }
 .problem-badges { display: flex; gap: 8px; flex-shrink: 0; margin-left: auto; }
 .badge {
   font-family: var(--font-body);
@@ -1109,13 +1125,7 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   align-items: center;
   gap: 6px;
 }
-.badge::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
+.badge::before { display: none; }
 .badge-critical { color: #ff4d3a; }
 .badge-critical::before { background: #ff4d3a; }
 .badge-high { color: #e8a020; }

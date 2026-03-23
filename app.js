@@ -218,7 +218,9 @@ function renderCategory(catId) {
   if (!cat) return renderHome();
   const stats = getCategoryStats(cat);
   let cards = '';
-  cat.problems.forEach((p,i) => {
+  const severityOrder = {critical:0, high:1, medium:2, info:3};
+  const sortedProblems = [...cat.problems].sort((a,b) => (severityOrder[a.severity]??9) - (severityOrder[b.severity]??9));
+  sortedProblems.forEach((p,i) => {
     const details = PROBLEM_DETAILS[p.title] || {};
     let solRows = '';
     p.solutions.forEach(s => { solRows += `<tr><td>${s.name}</td><td>${solStatusBadge(s.status)}</td></tr>`; });
@@ -230,7 +232,8 @@ function renderCategory(catId) {
     if (details.opportunity || details.risk) {
       metaGrid = `<div class="problem-meta-grid">${details.opportunity ? `<div class="problem-meta-box"><div class="problem-meta-label opp">Opportunity</div><div class="problem-meta-text">${details.opportunity}</div></div>` : ''}${details.risk ? `<div class="problem-meta-box"><div class="problem-meta-label risk">Risk of inaction</div><div class="problem-meta-text">${details.risk}</div></div>` : ''}</div>`;
     }
-    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}${statusBadge(p.status)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div><div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Status</th></tr></thead><tbody>${solRows}</tbody></table></div>${clLink}${metaGrid}${eipTags}</div></div></div>`;
+    const excerpt = p.desc.split(/\.\s/)[0] + '.';
+    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" data-severity="${p.severity}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><div class="problem-title-group"><span class="problem-title">${p.title}</span><span class="problem-excerpt">${excerpt}</span></div><div class="problem-badges">${severityBadge(p.severity)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div><div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Status</th></tr></thead><tbody>${solRows}</tbody></table></div>${clLink}${metaGrid}${eipTags}</div></div></div>`;
   });
   let catNav = DATA.categories.map(c => c.id === catId ? `<span class="cat-nav-item active">${c.title}</span>` : `<a class="cat-nav-item" href="#/category/${c.id}">${c.title}</a>`).join('');
   return `
