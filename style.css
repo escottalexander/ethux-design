@@ -703,12 +703,14 @@ main { padding-bottom: 120px; }
 }
 .cl-header:hover { background: var(--surface-hover); }
 .cl-expand {
-  font-size: 0.7rem;
   color: var(--text-muted);
-  transition: transform var(--transition);
+  transition: transform var(--transition), color var(--transition);
   flex-shrink: 0;
-  width: 20px;
-  text-align: center;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   order: 3;
   margin-left: 8px;
 }
@@ -1074,12 +1076,14 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 }
 .problem-head:hover { background: var(--surface-hover); }
 .problem-expand {
-  font-size: 0.7rem;
   color: var(--text-muted);
-  transition: transform var(--transition);
+  transition: transform var(--transition), color var(--transition);
   flex-shrink: 0;
-  width: 20px;
-  text-align: center;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   order: 3;
   margin-left: 8px;
 }
@@ -1214,6 +1218,8 @@ a.eip-tag:hover { text-decoration: underline; }
   border-radius: var(--radius-md);
   background: var(--surface);
 }
+.problem-meta-box:has(.opp) { background: rgba(34, 197, 94, 0.04); }
+.problem-meta-box:has(.risk) { background: rgba(239, 68, 68, 0.04); }
 .problem-meta-label {
   font-family: var(--font-body);
   font-size: 1.1rem;
@@ -1255,18 +1261,9 @@ a.eip-tag:hover { text-decoration: underline; }
   .problem-expand { order: 2; }
   .problem-content { padding: 0 16px 32px 16px; }
 }
-.problem-checklist-link {
-  display: inline-block;
+.problem-checklist-btn {
   margin-top: 32px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid var(--accent-dim);
-  transition: border-color var(--transition);
 }
-.problem-checklist-link:hover { border-color: var(--accent); }
 
 /* ==========================================================
    SUBMIT FORM
