@@ -699,27 +699,10 @@ function renderAgents() {
 function toggleProblem(catId, index) {
   const el = document.getElementById(`problem-${catId}-${index}`);
   if (!el) return;
-  const body = el.querySelector('.problem-body');
   el.classList.toggle('open');
   const isOpen = el.classList.contains('open');
   const h = el.querySelector('.problem-head');
   if (h) h.setAttribute('aria-expanded', isOpen);
-  if (body) {
-    if (isOpen) {
-      body.style.maxHeight = body.scrollHeight + 'px';
-      body.addEventListener('transitionend', function handler() {
-        if (el.classList.contains('open')) {
-          body.style.maxHeight = 'none';
-        }
-        body.removeEventListener('transitionend', handler);
-      });
-    } else {
-      body.style.maxHeight = body.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        body.style.maxHeight = '';
-      });
-    }
-  }
 }
 function toggleCrit(index) {
   const el = document.getElementById(`crit-${index}`);
@@ -745,23 +728,6 @@ function toggleCLSection(id) {
   if (!el) return;
   const body = el.querySelector('.cl-body');
   el.classList.toggle('open');
-  if (body) {
-    const isOpen = el.classList.contains('open');
-    if (isOpen) {
-      body.style.maxHeight = body.scrollHeight + 'px';
-      body.addEventListener('transitionend', function handler() {
-        if (el.classList.contains('open')) {
-          body.style.maxHeight = 'none';
-        }
-        body.removeEventListener('transitionend', handler);
-      });
-    } else {
-      body.style.maxHeight = body.scrollHeight + 'px';
-      requestAnimationFrame(() => {
-        body.style.maxHeight = '';
-      });
-    }
-  }
   const header = el.querySelector('.cl-header');
   if (header) header.setAttribute('aria-expanded', el.classList.contains('open'));
 }

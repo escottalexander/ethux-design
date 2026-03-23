@@ -750,10 +750,9 @@ main { padding-bottom: 120px; }
   color: var(--text-dim);
 }
 .cl-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none;
 }
-.cl-section.open .cl-body { overflow: visible; }
+.cl-section.open .cl-body { display: block; }
 .cl-body-inner {
   padding: 0 32px 32px 32px;
 }
@@ -1129,10 +1128,11 @@ html.light .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
 .badge-research::before { background: #4ac4c4; }
 
 .problem-body {
-  max-height: 0; overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none;
 }
-.problem-card.open .problem-body { overflow: visible; }
+.problem-card.open .problem-body {
+  display: block;
+}
 .problem-content {
   padding: 0 32px 48px 32px;
 }
