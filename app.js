@@ -33,7 +33,8 @@ const ICONS = {
   moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
   sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
   ethDiamond:'<svg viewBox="0 0 256 417" fill="none"><path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="#083AF3"/><path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="#083AF3"/><path d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" fill="#083AF3"/><path d="M127.962 416.905v-104.72L0 236.585z" fill="#083AF3"/></svg>',
-  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>'
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
 };
 function getIcon(n) { return ICONS[n] || ''; }
 
@@ -170,7 +171,7 @@ function renderHome() {
           <p class="hero-desc hero-desc--secondary">A living catalog of the improvements that will take blockchain applications from early adopters to the majority.</p>
           <div class="hero-cta-group">
             <a href="#" class="hero-cta" onclick="event.preventDefault();document.getElementById('ux-map').scrollIntoView({behavior:'smooth'})">Browse Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
-            <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="hero-cta hero-cta--ghost">Report a Problem ${ICONS.arrow}</a>
+            <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="hero-cta hero-cta--ghost">Report a Problem ${ICONS.external}</a>
           </div>
         </section>
       </div>
