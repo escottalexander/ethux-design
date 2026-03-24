@@ -9,12 +9,14 @@
 // ===========================
 (function() {
   const saved = localStorage.getItem('ethux-theme');
-  if (saved === 'light') document.documentElement.classList.add('light');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  }
 })();
 function toggleTheme() {
   const h = document.documentElement;
-  h.classList.toggle('light');
-  localStorage.setItem('ethux-theme', h.classList.contains('light') ? 'light' : 'dark');
+  h.classList.toggle('dark');
+  localStorage.setItem('ethux-theme', h.classList.contains('dark') ? 'dark' : 'light');
 }
 
 
@@ -32,7 +34,7 @@ const ICONS = {
   grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/></svg>',
   moon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
   sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
-  ethDiamond:'<svg viewBox="0 0 256 417" fill="none"><path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="#083AF3"/><path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="#083AF3"/><path d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" fill="#083AF3"/><path d="M127.962 416.905v-104.72L0 236.585z" fill="#083AF3"/></svg>',
+  ethDiamond:'<svg viewBox="0 0 256 417" fill="none"><path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="currentColor"/><path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="currentColor"/><path d="M127.961 312.187l-1.575 1.92v98.199l1.575 4.6L256 236.587z" fill="currentColor"/><path d="M127.962 416.905v-104.72L0 236.585z" fill="currentColor"/></svg>',
   arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
   external:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>'
 };
@@ -109,9 +111,10 @@ function renderNav(active) {
         <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
         <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
         <a href="#/agents" class="${active==='agents'?'active':''}">AI Agents</a>
-        <a href="#/about" class="${active==='about'?'active':''}">About</a>
+
         <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Submit</a>
       </div>
+      <button class="nav-theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">${ICONS.moon}${ICONS.sun}</button>
       <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -122,7 +125,6 @@ function renderNav(active) {
       <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
       <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
       <a href="#/agents" class="${active==='agents'?'active':''}">AI Agents</a>
-      <a href="#/about" class="${active==='about'?'active':''}">About</a>
       <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Submit</a>
     </div>`;
 }
