@@ -191,9 +191,9 @@ function renderHome() {
         <div class="pull-quote reveal">700 million people hold crypto. Fewer than 70 million use it actively onchain.</div>
 
         <section class="section">
-          <div class="section-eyebrow">Research</div>
-          <h2 class="section-title section-title--sm">Why It's Stuck</h2>
-          <div class="section-desc">Three frameworks from CRADL research that explain the gap.</div>
+          <div class="section-eyebrow">Insights</div>
+          <h2 class="section-title section-title--sm">Why Adoption Stalls</h2>
+          <div class="section-desc">Three frameworks that explain the gap between 700 million crypto holders and 70 million active onchain users.</div>
           <div class="insight-grid">
             <a href="#/chasm" class="insight-card">
               <div class="insight-card-eyebrow">Adoption</div>
