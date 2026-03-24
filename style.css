@@ -265,7 +265,7 @@ body {
   transition: all var(--transition-fast);
 }
 .hero-cta:hover { background: var(--accent-hover); }
-.hero-cta--ghost { background: none; color: var(--accent); padding-left: 0; }
+.hero-cta--ghost { background: none; color: var(--accent); padding-left: 0; gap: 5px; }
 .hero-cta--ghost:hover { background: none; color: var(--accent-hover); transform: none; box-shadow: none; }
 .hero-desc--secondary { margin-top: 8px; }
 .hero-cta svg { width: 14px; height: 14px; }
