@@ -1930,7 +1930,7 @@ a.eip-tag:hover { text-decoration: underline; }
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent-secondary);
+  color: var(--accent);
   margin-bottom: 8px;
 }
 .insight-card-title {
