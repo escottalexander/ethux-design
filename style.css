@@ -394,11 +394,9 @@ main { padding-bottom: 120px; }
   line-height: 1.4;
   color: var(--text-dim);
   text-align: center;
-  max-width: none;
-  margin: 0 0 96px;
-  padding: 48px;
-  background: linear-gradient(90deg, var(--bg-raised), transparent);
-  border-radius: var(--radius-lg);
+  max-width: 680px;
+  margin: 0 auto 96px;
+  padding: 48px 0;
 }
 
 /* ==========================================================
@@ -1001,7 +999,7 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
    CTA BAR
    ========================================================== */
 .cta-section {
-  border: 1px solid rgba(8, 58, 243, 0.15);
+  border: none;
   border-radius: var(--radius-lg);
   padding: 48px 56px;
   display: flex;
@@ -1010,19 +1008,28 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   gap: 32px;
   margin-top: 48px;
   margin-bottom: 96px;
-  background: linear-gradient(135deg, var(--accent-dim) 0%, transparent 60%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--bg-raised) 70%);
+}
+html.dark .cta-section {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--bg-raised) 70%);
 }
 .cta-headline {
   font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text);
+  color: #fff;
   margin-bottom: 6px;
 }
 .cta-text {
   font-size: 1rem;
-  color: var(--text-dim);
+  color: rgba(255,255,255,0.8);
 }
+.cta-section .btn-primary {
+  background: #fff;
+  color: var(--accent);
+  border-color: #fff;
+}
+.cta-section .btn-primary:hover { opacity: 0.9; }
 
 /* ==========================================================
    BUTTONS
