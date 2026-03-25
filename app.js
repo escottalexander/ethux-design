@@ -301,6 +301,7 @@ function renderCategory(catId) {
         <div class="cat-page-title">${cat.title}</div>
         <div class="cat-page-desc">${cat.desc}</div>
         <div class="problem-list">${cards}</div>
+        <div class="cat-missing"><a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Something missing? Add a UX problem ${ICONS.external}</a></div>
       </div>
       ${renderFooter()}
     </main>`;

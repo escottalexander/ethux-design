@@ -1159,6 +1159,20 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
    PROBLEM ACCORDION
    ========================================================== */
 .problem-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.cat-missing {
+  margin-top: 24px;
+  text-align: right;
+}
+.cat-missing a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cat-missing a:hover { color: var(--accent); }
+.cat-missing a svg { width: 12px; height: 12px; }
 .problem-card { background: var(--bg-panel-solid); }
 .problem-card:first-child { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 .problem-card:last-child { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
