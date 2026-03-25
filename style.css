@@ -131,6 +131,9 @@ html.dark .problem-meta-box:has(.opp) { background: rgba(74, 222, 128, 0.06); bo
 html.dark .problem-meta-box:has(.risk) { background: rgba(248, 113, 113, 0.06); border-color: rgba(248, 113, 113, 0.15); }
 html.dark .footer-initiative { filter: invert(1); }
 
+html {
+  scrollbar-gutter: stable;
+}
 body {
   font-family: var(--font-body);
   font-size: 1rem;
@@ -1008,28 +1011,19 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   gap: 32px;
   margin-top: 48px;
   margin-bottom: 96px;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--bg-raised) 70%);
-}
-html.dark .cta-section {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--bg-raised) 70%);
+  background: linear-gradient(135deg, var(--accent-dim) 0%, var(--bg-raised) 60%);
 }
 .cta-headline {
   font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   margin-bottom: 6px;
 }
 .cta-text {
   font-size: 1rem;
-  color: rgba(255,255,255,0.8);
+  color: var(--text-dim);
 }
-.cta-section .btn-primary {
-  background: #fff;
-  color: var(--accent);
-  border-color: #fff;
-}
-.cta-section .btn-primary:hover { opacity: 0.9; }
 
 /* ==========================================================
    BUTTONS
