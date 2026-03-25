@@ -470,7 +470,7 @@ main { padding-bottom: 120px; }
   background: var(--bg-panel-solid);
   transition: background var(--transition);
 }
-.crit-item:hover { background: var(--surface-hover); }
+.crit-item:hover { background: var(--accent-glow); }
 .crit-num {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -651,7 +651,7 @@ main { padding-bottom: 120px; }
   padding: 28px;
   transition: background var(--transition);
 }
-.guide-card:hover { background: var(--surface-hover); }
+.guide-card:hover { background: var(--accent-glow); }
 .guide-card-title {
   font-family: var(--font-body);
   font-size: 1.3rem;
@@ -721,7 +721,7 @@ main { padding-bottom: 120px; }
   transition: background var(--transition);
 }
 .guide-card-v2:last-child { border-bottom: none; }
-.guide-card-v2:hover { background: var(--surface-hover); }
+.guide-card-v2:hover { background: var(--accent-glow); }
 .guide-card-v2-header {
   display: flex;
   flex-direction: column;
@@ -765,7 +765,7 @@ main { padding-bottom: 120px; }
   cursor: pointer;
   transition: background var(--transition);
 }
-.cl-header:hover { background: var(--surface-hover); }
+.cl-header:hover { background: var(--accent-glow); }
 .cl-expand {
   color: var(--text-muted);
   transition: transform var(--transition), color var(--transition);
@@ -1140,7 +1140,7 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   cursor: pointer;
   transition: background var(--transition);
 }
-.problem-head:hover { background: var(--surface-hover); }
+.problem-head:hover { background: var(--accent-glow); }
 .problem-expand {
   color: var(--text-muted);
   transition: transform var(--transition), color var(--transition);
@@ -2302,7 +2302,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   align-items: start;
   transition: background var(--transition);
 }
-.skill-card:hover { background: var(--surface-hover); }
+.skill-card:hover { background: var(--accent-glow); }
 .skill-card-head {
   display: flex;
   align-items: flex-start;
@@ -2482,7 +2482,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 :focus:not(:focus-visible) {
   outline: none;
 }
-.cat-card:active { background: var(--surface-hover); }
+.cat-card:active { background: var(--accent-glow); }
 .skip-link {
   position: absolute; left: -9999px; top: auto;
   z-index: 1001; padding: 8px 16px;
