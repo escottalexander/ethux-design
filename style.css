@@ -315,7 +315,6 @@ html.dark .hero-image .hero-image-dark { display: block; }
   letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 32px;
-  margin-left: -0.04em;
 }
 .hero-title .accent {
   color: var(--accent);
@@ -378,7 +377,6 @@ main { padding-bottom: 120px; }
   letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 20px;
-  margin-left: -0.04em;
 }
 .section-desc {
   font-size: 1.125rem;
@@ -2510,8 +2508,8 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 
 @supports (padding: env(safe-area-inset-top)) {
   .nav-inner {
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
+    padding-left: max(48px, env(safe-area-inset-left));
+    padding-right: max(48px, env(safe-area-inset-right));
   }
 }
 
