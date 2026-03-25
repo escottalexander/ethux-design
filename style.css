@@ -317,6 +317,7 @@ html.dark .hero-image .hero-image-dark { display: block; }
 }
 .hero-title .accent {
   color: var(--accent);
+  white-space: nowrap;
 }
 .hero-desc {
   font-family: var(--font-body);
