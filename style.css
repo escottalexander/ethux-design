@@ -299,23 +299,43 @@ html.dark .nav-theme-toggle svg:last-child { display: block; }
   width: 440px;
   opacity: 0.2;
 }
-.hero-image img {
-  width: 100%;
-  height: auto;
-  animation: heroColorShift 20s ease-in-out infinite;
+.hero-svg { width: 100%; height: auto; }
+
+/* Circle — static, subtle */
+.hero-svg-circle { stroke: var(--text-muted); opacity: 0.3; }
+
+/* Glyph — color cycling */
+.hero-svg-glyph {
+  stroke: var(--accent);
+  animation: glyphColor 12s ease-in-out infinite;
 }
-@keyframes heroColorShift {
-  0%   { filter: hue-rotate(0deg); }
-  25%  { filter: hue-rotate(45deg); }
-  50%  { filter: hue-rotate(120deg); }
-  75%  { filter: hue-rotate(220deg); }
-  100% { filter: hue-rotate(360deg); }
+@keyframes glyphColor {
+  0%   { stroke: #083AF3; }
+  20%  { stroke: #2BB4A8; }
+  40%  { stroke: #8b6ce0; }
+  60%  { stroke: #E8A020; }
+  80%  { stroke: #22C55E; }
+  100% { stroke: #083AF3; }
 }
-.hero-image .hero-image-light { display: block; }
-.hero-image .hero-image-dark { display: none; }
-html.dark .hero-image .hero-image-light { display: none; }
-html.dark .hero-image .hero-image-dark { display: block; }
-html.dark .hero-image { opacity: 0.45; }
+
+/* Rays — follow glyph with delay */
+.hero-svg-rays {
+  stroke: var(--accent);
+  opacity: 0.4;
+  animation: glyphColor 12s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+/* Nodes — pulse opacity */
+.hero-svg-nodes circle {
+  fill: var(--bg);
+  stroke: var(--accent);
+  animation: glyphColor 12s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+html.dark .hero-svg-circle { opacity: 0.2; }
+html.dark .hero-image { opacity: 0.6; }
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 8vw, 7rem);
@@ -2532,7 +2552,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   .nav-links-desktop { display: none; }
   .nav-hamburger { display: flex; margin-left: auto; }
   .hero { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; flex-direction: column; gap: 40px; }
-  .hero-image { width: 200px; opacity: 0.15; order: -1; }
+  .hero-image { width: 200px; opacity: 0.12; order: -1; }
   .hero-title { font-size: clamp(2rem, 9vw, 3.5rem); margin-bottom: 20px; }
   .section { margin-bottom: 56px; }
   .cta-section { flex-direction: column; text-align: center; padding: 28px; margin-bottom: 48px; }
