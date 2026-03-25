@@ -103,10 +103,10 @@ html.dark {
   --text: #F0EEEB;
   --text-dim: #A8A6A3;
   --text-muted: #858481;
-  --accent: #3B6FFF;
-  --accent-hover: #5B8AFF;
-  --accent-dim: rgba(59, 111, 255, 0.15);
-  --accent-glow: rgba(59, 111, 255, 0.08);
+  --accent: #2563FF;
+  --accent-hover: #4580FF;
+  --accent-dim: rgba(37, 99, 255, 0.18);
+  --accent-glow: rgba(37, 99, 255, 0.10);
   --accent-secondary: #3DD4C6;
   --accent-secondary-dim: rgba(61, 212, 198, 0.12);
   --red: #F87171;
@@ -148,7 +148,7 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 html.dark body {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px);
 }
 
 /* ==========================================================
@@ -296,7 +296,7 @@ html.dark .nav-theme-toggle svg:last-child { display: block; }
 }
 .hero-image {
   flex-shrink: 0;
-  width: 360px;
+  width: 440px;
   opacity: 0.2;
 }
 .hero-image img {
