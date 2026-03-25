@@ -297,13 +297,14 @@ html.dark .nav-theme-toggle svg:last-child { display: block; }
 .hero-image {
   flex-shrink: 0;
   width: 440px;
-  opacity: 0.55;
 }
 .hero-svg { width: 100%; height: auto; }
 
-/* Circle + nodes — static, muted */
-.hero-svg-circle { stroke: var(--border); opacity: 1; }
-.hero-svg-nodes circle { fill: var(--bg); stroke: var(--border); }
+/* Circle + nodes — static, visible but quiet */
+.hero-svg-circle { stroke: #c0c0c0; }
+.hero-svg-nodes circle { fill: var(--bg); stroke: #c0c0c0; }
+html.dark .hero-svg-circle { stroke: #3a3a44; }
+html.dark .hero-svg-nodes circle { stroke: #3a3a44; }
 
 /* Glyph — vivid, color cycling */
 .hero-svg-glyph {
@@ -318,9 +319,9 @@ html.dark .nav-theme-toggle svg:last-child { display: block; }
   100% { stroke: #083AF3; }
 }
 
-/* Rays — follow glyph with delay */
+/* Rays — follow glyph with delay, dimmer */
 .hero-svg-rays {
-  opacity: 0.5;
+  opacity: 0.35;
   animation: glyphColor 12s ease-in-out infinite;
   animation-delay: -3s;
 }
@@ -2540,7 +2541,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   .nav-links-desktop { display: none; }
   .nav-hamburger { display: flex; margin-left: auto; }
   .hero { padding-top: calc(var(--nav-height) + 32px); padding-bottom: 64px; flex-direction: column; gap: 40px; }
-  .hero-image { width: 200px; opacity: 0.12; order: -1; }
+  .hero-image { width: 200px; order: -1; }
   .hero-title { font-size: clamp(2rem, 9vw, 3.5rem); margin-bottom: 20px; }
   .section { margin-bottom: 56px; }
   .cta-section { flex-direction: column; text-align: center; padding: 28px; margin-bottom: 48px; }
