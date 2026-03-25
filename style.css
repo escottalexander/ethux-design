@@ -1024,7 +1024,10 @@ html:not(.dark) .cl-agent-bar-text code { background: rgba(0,0,0,0.06); }
   gap: 32px;
   margin-top: 48px;
   margin-bottom: 144px;
-  background: linear-gradient(135deg, var(--accent-dim) 0%, var(--bg-raised) 60%);
+  background: linear-gradient(135deg, #d5dbf1 0%, var(--bg-raised) 60%);
+}
+html.dark .cta-section {
+  background: linear-gradient(135deg, #172342 0%, var(--bg-raised) 60%);
 }
 .cta-headline {
   font-family: var(--font-body);
