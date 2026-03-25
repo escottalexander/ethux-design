@@ -166,7 +166,7 @@ html.dark body {
    NAVIGATION
    ========================================================== */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: sticky; top: 0;
   z-index: 200;
   display: flex; align-items: center; justify-content: center;
   height: var(--nav-height);
@@ -2011,7 +2011,10 @@ a.eip-tag:hover { text-decoration: underline; }
   padding: 28px 32px;
   border: 1px solid rgba(8, 58, 243, 0.15);
   border-radius: var(--radius-lg);
-  background: var(--accent-glow);
+  background: #f0f3fe;
+}
+html.dark .evidence-callout {
+  background: #181c2b;
 }
 .evidence-callout-title {
   font-family: var(--font-mono);
@@ -2259,6 +2262,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 /* Skill card action buttons */
 .skill-card-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
@@ -2270,18 +2274,25 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 }
 .skill-btn-primary:hover { opacity: 0.88; }
 .skill-btn-primary.copied { background: var(--green) !important; border-color: var(--green) !important; }
-.skill-btn-secondary {
-  background: none !important;
-  color: var(--accent) !important;
-  border-color: var(--accent-dim) !important;
-  transition: opacity var(--transition-fast) !important;
-}
-.skill-btn-secondary.copied { color: var(--green) !important; border-color: var(--green-dim) !important; }
+.skill-btn-secondary,
 .skill-btn-tertiary {
   background: none !important;
-  color: var(--text-muted) !important;
-  border-color: var(--border) !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.78rem !important;
+  color: var(--accent) !important;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: auto;
 }
+.skill-btn-tertiary {
+  color: var(--text-muted) !important;
+  margin-left: 0;
+}
+.skill-btn-secondary:hover,
+.skill-btn-tertiary:hover { text-decoration: underline; }
+.skill-btn-secondary.copied { color: var(--green) !important; }
+.skill-btn-tertiary.copied { color: var(--green) !important; }
 
 @media (max-width: 640px) {
   .builders-hero-code-block { flex-direction: column; align-items: stretch; gap: 8px; }
@@ -2307,7 +2318,6 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   align-items: start;
   transition: background var(--transition);
 }
-.skill-card:hover { background: var(--accent-glow); }
 .skill-card-head {
   display: flex;
   align-items: flex-start;
