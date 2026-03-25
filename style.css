@@ -2196,7 +2196,7 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   display: block;
   font-family: var(--font-body);
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: var(--text-dim);
   padding: 10px 16px 0;
   background: var(--accent-glow);
   border: 1px solid var(--border);
