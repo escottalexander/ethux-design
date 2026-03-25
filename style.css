@@ -2137,6 +2137,149 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   margin-top: 16px;
   display: inline-flex; align-items: center; gap: 10px;
 }
+/* Quick Start Box */
+.quickstart-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  margin-bottom: 32px;
+}
+.quickstart-title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.quickstart-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.quickstart-tab {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.quickstart-tab.active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.quickstart-label {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.quickstart-code {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+.quickstart-code code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text);
+  line-height: 1.6;
+  flex: 1;
+  word-break: break-all;
+}
+.quickstart-copy {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius-full);
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+.quickstart-copy:hover { background: var(--accent-dim); }
+.quickstart-copy.copied { color: var(--green); border-color: var(--green-dim); }
+.quickstart-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.quickstart-note a { color: var(--accent); text-decoration: none; }
+
+/* ethskills bar */
+.ethskills-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.ethskills-bar a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.ethskills-bar-count {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--surface);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* Skill card action buttons */
+.skill-card-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.skill-btn-primary {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  border-color: var(--accent) !important;
+}
+.skill-btn-primary:hover { opacity: 0.9; }
+.skill-btn-primary.copied { background: var(--green) !important; border-color: var(--green) !important; }
+.skill-btn-secondary {
+  background: none !important;
+  color: var(--accent) !important;
+  border-color: var(--accent-dim) !important;
+}
+.skill-btn-secondary:hover { background: var(--accent-dim) !important; }
+.skill-btn-secondary.copied { color: var(--green) !important; border-color: var(--green-dim) !important; }
+.skill-btn-tertiary {
+  background: none !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border) !important;
+}
+.skill-btn-tertiary:hover { color: var(--text-dim) !important; }
+
+@media (max-width: 768px) {
+  .quickstart-box { padding: 20px; }
+  .quickstart-code { flex-direction: column; gap: 8px; }
+  .quickstart-copy { align-self: flex-start; }
+  .ethskills-bar { font-size: 0.8rem; }
+}
+
 .skill-grid {
   display: flex;
   flex-direction: column;

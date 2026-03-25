@@ -645,16 +645,17 @@ function renderParadigms() {
 
 
 function renderAgents() {
-  const tp = DATA.checklists.reduce((s,c) => s + (c.items ? c.items.length : 0), 0);
+  const REPO_BASE = 'https://raw.githubusercontent.com/konopkja/protocol-ux/main/skills';
 
   let skillCards = '';
   DATA.checklists.forEach((cl, i) => {
     const info = SKILL_DESCRIPTIONS[cl.id] || {};
     const useCases = (info.useCases || []).map(u => `<div class="skill-card-what-item">${u}</div>`).join('');
     const tags = (cl.standards || []).map(s => `<span class="eip-tag">${s}</span>`).join('');
-
     const icon = SKILL_ICONS[cl.id] || '';
-    skillCards += `<div class="skill-card fade-up stagger-${Math.min(i+1,7)}"><div class="skill-card-info"><div class="skill-card-head"><div class="skill-card-icon">${icon}</div><div><div class="skill-card-title">${cl.title}</div><div class="skill-card-path">${cl.items.length} items</div></div></div><div class="skill-card-desc">${info.humanDesc || cl.desc}</div><div class="skill-card-what"><div class="skill-card-what-title">When to use</div>${useCases}</div><div class="skill-card-tags" style="margin-top:12px;">${tags}</div></div><div class="skill-card-actions"><button class="cl-dl-btn" onclick="downloadSkill('${cl.id}')">Download .md</button></div></div>`;
+    const rawUrl = `${REPO_BASE}/${cl.id}.md`;
+
+    skillCards += `<div class="skill-card fade-up stagger-${Math.min(i+1,7)}"><div class="skill-card-info"><div class="skill-card-head"><div class="skill-card-icon">${icon}</div><div><div class="skill-card-title">${cl.title}</div><div class="skill-card-path">skills/${cl.id}.md</div></div></div><div class="skill-card-desc">${info.humanDesc || cl.desc}</div><div class="skill-card-what"><div class="skill-card-what-title">When to use</div>${useCases}</div><div class="skill-card-tags" style="margin-top:12px;">${tags}</div></div><div class="skill-card-actions"><button class="cl-dl-btn skill-btn-primary" onclick="copyText('${rawUrl}',this)">Copy URL</button><button class="cl-dl-btn skill-btn-secondary" onclick="copySkillContent('${cl.id}',this)">Copy Content</button><button class="cl-dl-btn skill-btn-tertiary" onclick="downloadSkill('${cl.id}')">Download</button></div></div>`;
   });
 
   return `
@@ -662,22 +663,33 @@ function renderAgents() {
     <main id="main-content">
       <div class="container page-container">
         <div class="section-eyebrow">For Builders</div>
-        <h2 class="section-title">UX Checklists</h2>
-        <div class="section-desc" style="margin-bottom:32px;">Prioritized UX guidelines derived from real user pain point data. Each checklist covers a specific area of Ethereum UX with items ranked by impact. Download them as structured markdown files for your AI coding agent or use them as a manual review guide.</div>
+        <h2 class="section-title">UX Skill Files</h2>
+        <div class="section-desc" style="margin-bottom:32px;">Structured Ethereum UX rules your AI coding agent can read directly. Built from real user pain data, updated as standards evolve.</div>
+
+        <div class="quickstart-box">
+          <div class="quickstart-title">Get started in one line</div>
+          <div class="quickstart-tabs">
+            <button class="quickstart-tab active" onclick="switchQuickstart('claude',this)">Claude Code</button>
+            <button class="quickstart-tab" onclick="switchQuickstart('cursor',this)">Cursor / Copilot</button>
+          </div>
+          <div class="quickstart-panel" id="qs-claude">
+            <div class="quickstart-label">Add to your CLAUDE.md or project instructions:</div>
+            <div class="quickstart-code"><code>Fetch ${REPO_BASE}/_shared.md and the relevant skill file from ${REPO_BASE}/ when building Ethereum dapp UX. Follow all ALWAYS/NEVER rules.</code><button class="quickstart-copy" onclick="copyText('Fetch ${REPO_BASE}/_shared.md and the relevant skill file from ${REPO_BASE}/ when building Ethereum dapp UX. Follow all ALWAYS/NEVER rules.',this)">Copy</button></div>
+          </div>
+          <div class="quickstart-panel" id="qs-cursor" style="display:none;">
+            <div class="quickstart-label">Copy all skill content into .cursorrules:</div>
+            <div class="quickstart-code"><code>8 skill files — approvals, signing, gas, multi-chain, onboarding, wallets, safety, + shared patterns</code><button class="quickstart-copy" onclick="copyAllSkillContent(this)">Copy All Skills</button></div>
+          </div>
+          <div class="quickstart-note">8 files covering approvals, signing, gas, multi-chain, onboarding, wallets, safety, and shared patterns. Each file references <a href="https://ethskills.com/" target="_blank" rel="noopener noreferrer">ethskills.com</a> for implementation-level code.</div>
+        </div>
+
+        <div class="ethskills-bar">
+          <span>These files define <strong>what</strong> to get right. For implementation code (Solidity patterns, contract ABIs, deployment), point your agent to</span>
+          <a href="https://ethskills.com/" target="_blank" rel="noopener noreferrer">ethskills.com</a>
+          <span class="ethskills-bar-count">19 skills</span>
+        </div>
 
         <div class="skill-grid">${skillCards}</div>
-
-        <div class="section" style="margin-top:64px;">
-          <div class="section-eyebrow">Implementation</div>
-          <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:12px;">Want code-level rules?</h2>
-          <div class="agents-hero-box">
-            <div class="agents-hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-            <div class="agents-hero-content">
-              <div class="agents-hero-title">ethskills.com</div>
-              <p>These checklists tell you <strong>what</strong> to worry about. For <strong>how</strong> to implement the fixes, including decision trees, code examples, and NEVER/ALWAYS rules, point your AI agent to <a href="https://ethskills.com/" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">ethskills.com</a>. 19 implementation-level skills covering gas, wallets, standards, security, frontend UX, and more.</p>
-            </div>
-          </div>
-        </div>
       </div>
       ${renderFooter()}
     </main>`;
@@ -687,6 +699,34 @@ function renderAgents() {
 // ===========================
 // INTERACTIONS
 // ===========================
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function copySkillContent(guideId, btn) {
+  const cl = DATA.checklists.find(c => c.id === guideId);
+  if (!cl) return;
+  const md = generateSkillMD(cl);
+  copyText(md, btn);
+}
+function copyAllSkillContent(btn) {
+  let all = '';
+  DATA.checklists.forEach(cl => {
+    all += `\n\n${'='.repeat(60)}\n# ${cl.title} (skills/${cl.id}.md)\n${'='.repeat(60)}\n\n`;
+    all += generateSkillMD(cl);
+  });
+  copyText(all.trim(), btn);
+}
+function switchQuickstart(tab, btn) {
+  document.querySelectorAll('.quickstart-panel').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.quickstart-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('qs-' + tab).style.display = 'block';
+  btn.classList.add('active');
+}
 function rotateQuote(carouselId, dir) {
   const el = document.getElementById(carouselId);
   if (!el) return;
