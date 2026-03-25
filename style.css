@@ -408,7 +408,7 @@ main { padding-bottom: 120px; }
   display: flex;
   flex-direction: column;
 }
-.cat-card:hover { background: var(--surface); }
+.cat-card:hover { background: var(--accent-glow); }
 .cat-card-icon {
   width: 48px;
   height: 48px;
@@ -2139,10 +2139,11 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 }
 /* Quick Start Box */
 .quickstart-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 32px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  padding: 0 0 32px 0;
   margin-bottom: 32px;
 }
 .quickstart-title {
@@ -2181,37 +2182,39 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 }
 .quickstart-code {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
-  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 14px 16px;
+  background: none;
 }
 .quickstart-code code {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--text);
-  line-height: 1.6;
+  color: var(--text-dim);
+  line-height: 1.4;
   flex: 1;
-  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .quickstart-copy {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 4px 12px;
-  border: 1px solid var(--accent-dim);
+  padding: 6px 16px;
+  border: none;
   border-radius: var(--radius-full);
-  background: none;
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
   transition: all var(--transition-fast);
 }
-.quickstart-copy:hover { background: var(--accent-dim); }
-.quickstart-copy.copied { color: var(--green); border-color: var(--green-dim); }
+.quickstart-copy:hover { opacity: 0.9; }
+.quickstart-copy.copied { background: var(--green); }
 .quickstart-note {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -2220,64 +2223,65 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
 }
 .quickstart-note a { color: var(--accent); text-decoration: none; }
 
-/* ethskills bar */
+/* ethskills callout */
 .ethskills-bar {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-dim);
-  padding: 16px 0;
-  margin-bottom: 24px;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  margin-bottom: 32px;
 }
 .ethskills-bar a {
   color: var(--accent);
   font-weight: 700;
+  font-size: 1rem;
   text-decoration: none;
 }
+.ethskills-bar a:hover { text-decoration: underline; }
 .ethskills-bar-count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  background: var(--surface);
-  padding: 2px 8px;
+  background: var(--accent-dim);
+  padding: 3px 10px;
   border-radius: var(--radius-full);
 }
 
 /* Skill card action buttons */
 .skill-card-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
+}
+.skill-btn-primary, .skill-btn-secondary, .skill-btn-tertiary {
+  transition: all var(--transition-fast) !important;
 }
 .skill-btn-primary {
   background: var(--accent) !important;
   color: var(--bg) !important;
   border-color: var(--accent) !important;
 }
-.skill-btn-primary:hover { opacity: 0.9; }
 .skill-btn-primary.copied { background: var(--green) !important; border-color: var(--green) !important; }
 .skill-btn-secondary {
   background: none !important;
   color: var(--accent) !important;
   border-color: var(--accent-dim) !important;
 }
-.skill-btn-secondary:hover { background: var(--accent-dim) !important; }
 .skill-btn-secondary.copied { color: var(--green) !important; border-color: var(--green-dim) !important; }
 .skill-btn-tertiary {
   background: none !important;
   color: var(--text-muted) !important;
   border-color: var(--border) !important;
 }
-.skill-btn-tertiary:hover { color: var(--text-dim) !important; }
 
 @media (max-width: 768px) {
-  .quickstart-box { padding: 20px; }
-  .quickstart-code { flex-direction: column; gap: 8px; }
+  .quickstart-code { flex-direction: column; gap: 8px; align-items: stretch; }
+  .quickstart-code code { white-space: normal; overflow: visible; text-overflow: unset; }
   .quickstart-copy { align-self: flex-start; }
-  .ethskills-bar { font-size: 0.8rem; }
+  .ethskills-bar { font-size: 0.9rem; }
 }
 
 .skill-grid {
