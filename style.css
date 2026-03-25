@@ -29,7 +29,7 @@
   --border-light: rgba(8, 58, 243, 0.04);
   /* Text */
   --text: #1C1917;
-  --text-dim: #78716C;
+  --text-dim: #515151;
   --text-muted: #A8A29E;
   /* Primary accent: Ethereum blue (matches logo) */
   --accent: #083AF3;
@@ -394,9 +394,11 @@ main { padding-bottom: 120px; }
   line-height: 1.4;
   color: var(--text-dim);
   text-align: center;
-  max-width: 680px;
-  margin: 0 auto 96px;
-  padding: 48px 0;
+  max-width: none;
+  margin: 0 0 96px;
+  padding: 48px;
+  background: linear-gradient(90deg, var(--bg-raised), transparent);
+  border-radius: var(--radius-lg);
 }
 
 /* ==========================================================
@@ -421,7 +423,8 @@ main { padding-bottom: 120px; }
   display: flex;
   flex-direction: column;
 }
-.cat-card:hover { background: var(--accent-glow); }
+.cat-card:hover { background: #f0f3fe; }
+html.dark .cat-card:hover { background: #181c2b; }
 .cat-card-icon {
   width: 48px;
   height: 48px;
