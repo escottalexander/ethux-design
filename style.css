@@ -315,6 +315,7 @@ html.dark .hero-image .hero-image-dark { display: block; }
   letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 32px;
+  margin-left: -0.04em;
 }
 .hero-title .accent {
   color: var(--accent);
@@ -377,6 +378,7 @@ main { padding-bottom: 120px; }
   letter-spacing: -0.02em;
   color: var(--text);
   margin-bottom: 20px;
+  margin-left: -0.04em;
 }
 .section-desc {
   font-size: 1.125rem;
