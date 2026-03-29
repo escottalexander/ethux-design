@@ -174,7 +174,7 @@ function renderHome() {
             <p class="hero-desc hero-desc--secondary">A living catalog of the improvements that will take blockchain applications from early adopters to the majority.</p>
             <div class="hero-cta-group">
               <a href="#" class="hero-cta" onclick="event.preventDefault();document.getElementById('ux-map').scrollIntoView({behavior:'smooth'})">Browse Categories <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></a>
-              <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="hero-cta hero-cta--ghost">Add UX Problem ${ICONS.external}</a>
+              <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="hero-cta hero-cta--ghost">Share Feedback ${ICONS.external}</a>
             </div>
           </div>
           <div class="hero-image">
@@ -249,7 +249,7 @@ function renderHome() {
         <div class="cta-section">
           <div class="cta-content">
             <h3 class="cta-headline">Seen something we missed?</h3>
-            <div class="cta-text">Every item on this map started as one person's story. Share yours and help shape what builders fix next.</div>
+            <div class="cta-text">Report a new UX problem or share feedback on existing ones. Every item on this map started as one person's story.</div>
           </div>
           <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Add to the Map</a>
         </div>
@@ -301,7 +301,7 @@ function renderCategory(catId) {
         <div class="cat-page-title">${cat.title}</div>
         <div class="cat-page-desc">${cat.desc}</div>
         <div class="problem-list">${cards}</div>
-        <div class="cat-missing"><a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Something missing? Add a UX problem ${ICONS.external}</a></div>
+        <div class="cat-missing"><a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Something missing or wrong? Share feedback ${ICONS.external}</a></div>
       </div>
       ${renderFooter()}
     </main>`;
