@@ -254,27 +254,9 @@ const PROBLEM_DETAILS = {
     opportunity: '<div class="lead">Localized interfaces tap into 75% of internet users who don\'t speak English.</div><ul><li>Every language added opens a new market segment</li><li>Localized content ranks in local search results</li><li>Community translators already volunteer for open-source projects</li></ul>',
     risk: '<div class="lead">English-only interfaces exclude entire continents.</div><ul><li>The next billion crypto users will not come from English-speaking countries</li><li>Non-English users fall back on poorly translated guides</li><li>Misinformation spreads faster in underserved language markets</li></ul>'
   },
-  'Inconsistent Design Patterns': {
-    opportunity: '<div class="lead">Shared UX conventions across dapps reduce the learning curve for new users.</div><ul><li>Knowledge transfers between dapps when patterns are consistent</li><li>Users explore the ecosystem instead of sticking to one app</li><li>Design systems lower development cost for new dapps</li></ul>',
-    risk: '<div class="lead">Inconsistent patterns mean every dapp requires re-learning.</div><ul><li>Users stick with the one app they know instead of exploring</li><li>Every inconsistency is a potential confusion point</li><li>Ecosystem growth limited by per-dapp learning curves</li></ul>'
-  },
-  // Gas
-  'Gas Volatility': {
-    opportunity: '<div class="lead">Predictable fee UX removes the primary source of transaction anxiety.</div><ul><li>Fiat display, warnings, and timing suggestions build trust in costs</li><li>Users transact more when they trust the price</li><li>Fee prediction features reduce failed transactions</li></ul>',
-    risk: '<div class="lead">Gas spikes cause failed transactions and lasting aversion to on-chain activity.</div><ul><li>Users burned by high gas once develop permanent anxiety</li><li>Overpayment erodes trust in the fee system</li><li>Failed transactions from insufficient gas waste money with no result</li></ul>'
-  },
-  'L2 Fee Confusion': {
-    opportunity: '<div class="lead">Clear L1+L2 fee breakdowns accelerate rollup migration from mainnet.</div><ul><li>Users understand the value proposition of L2s when fees are transparent</li><li>Transparent display builds confidence in the L2 ecosystem</li><li>Comparison shopping between L2s becomes possible</li></ul>',
-    risk: '<div class="lead">Opaque L2 fees erode the "cheap transactions" narrative driving adoption.</div><ul><li>Users who can\'t predict costs avoid transacting</li><li>Hidden fees feel deceptive compared to upfront pricing</li><li>Trust in L2 cost savings undermined by unpredictable totals</li></ul>'
-  },
-  // DeFi
-  'Complex DeFi Flows': {
-    opportunity: '<div class="lead">Simplified interfaces dramatically expand the user base beyond power users.</div><ul><li>Single-action DeFi matches the UX of traditional finance</li><li>Lower barriers expand the user base beyond power users</li><li>Simplified flows reduce error rates and support burden</li></ul>',
-    risk: '<div class="lead">Complex flows gate DeFi behind technical expertise.</div><ul><li>Total value locked stagnates when only power users can navigate</li><li>Institutional capital stays on the sidelines</li><li>DeFi remains a niche instead of becoming financial infrastructure</li></ul>'
-  },
-  'Impermanent Loss Opacity': {
-    opportunity: '<div class="lead">Clear IL visualization would dramatically increase LP confidence and capital efficiency.</div><ul><li>Real-time P&L tracking lets LPs make informed decisions</li><li>Transparent IL display builds trust in liquidity provision</li><li>Better-informed LPs optimize positions instead of panic-withdrawing</li></ul>',
-    risk: '<div class="lead">Users who discover impermanent loss after the fact lose trust in all of DeFi.</div><ul><li>Lack of upfront disclosure feels like deception</li><li>Post-hoc IL discovery triggers permanent ecosystem exit</li><li>Word-of-mouth warnings from burned LPs deter new participants</li></ul>'
+  'Key Management Burden': {
+    opportunity: '<div class="lead">Smart accounts and recovery mechanisms shift the model from preventing all key loss to limiting damage when keys are compromised.</div><ul><li>Smart accounts (ERC-4337) enable social recovery, spending limits, and session keys without changing the user\'s address</li><li>EIP-7702 lets existing EOAs delegate to smart contract logic, bridging toward safer defaults without forced migration</li><li>Passkeys and hardware-backed signing remove the need for users to see or manage raw key material at all</li></ul>',
+    risk: '<div class="lead">Compromised keys and account takeovers remain a leading cause of user fund loss.</div><ul><li>A single leaked seed phrase means total, irreversible loss of all assets</li><li>The security burden falls entirely on the user with no institutional safety net</li><li>This is the primary reason mainstream users stay on centralized exchanges rather than using self-custody</li></ul>'
   },
   // Protocol Design
   'No Default Native Account Abstraction': {
