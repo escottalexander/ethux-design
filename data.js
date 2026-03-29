@@ -135,7 +135,7 @@ const CRITICAL_DETAILS = {
       '"$1.77M in stablecoins drained via an EIP-2612 Permit phishing attack. The victim was socially engineered into signing an off-chain permit signature." <span class="quote-source">Security researcher, community report</span>'
     ],
     opportunity: '<div class="lead">Human-readable signing screens differentiate wallets on trust.</div><ul><li>Transaction simulation builds user trust before committing</li><li>Clear signing could prevent wallet drainer losses ($84M in 2025, down from $494M in 2024)</li><li>Removes hesitation users feel before every signature, increasing dapp engagement</li><li>Trust-first wallets command premium loyalty and retention</li></ul>',
-    risk: '<div class="lead">Blind signing is the #1 attack vector for wallet drains.</div><ul><li>Each high-profile theft generates media coverage eroding public trust</li><li>Regulatory scrutiny increases with every major exploit</li><li>Users who cannot read what they sign are defenseless</li></ul>'
+    risk: '<div class="lead">Blind signing is a leading attack vector for wallet drains.</div><ul><li>Each high-profile theft generates media coverage eroding public trust</li><li>Regulatory scrutiny increases with every major exploit</li><li>Users who cannot read what they sign are defenseless</li></ul>'
   },
   'Fragmented Asset View': {
     story: '"I find myself mostly sticking to 2-3 chains max. Every time I try to spread out more, tracking everything becomes a nightmare." <span class="quote-source">User, community report</span>',
@@ -158,7 +158,7 @@ const CRITICAL_DETAILS = {
   'Mobile Connection Dance': {
     story: '"On mobile, wallet integration can destroy UX. Lost sessions, getting stuck when returning to the app, signatures staying pending forever." <span class="quote-source">Developer, community report</span>',
     opportunity: '<div class="lead">Mobile is 60%+ of web traffic, yet 65% of protocols are not optimized for mobile-first.</div><ul><li>Wallets with smooth mobile flows capture the majority of new user interactions</li><li>Seamless mobile UX unlocks the largest computing platform on Earth</li><li>Wallets that solve mobile connection will be where most new users start</li></ul>',
-    risk: '<div class="lead">Failed mobile connections are the top reason users abandon dapp interactions on phones.</div><ul><li>Every broken flow is a lost transaction and a lost fee</li><li>Users who fail once conclude "crypto doesn\'t work on mobile"</li><li>Users who fail on mobile do not come back to try again on desktop</li></ul>'
+    risk: '<div class="lead">Failed mobile connections are a major reason users abandon dapp interactions on phones.</div><ul><li>Every broken flow is a lost transaction and a lost fee</li><li>Users who fail once conclude "crypto doesn\'t work on mobile"</li><li>Users who fail on mobile do not come back to try again on desktop</li></ul>'
   },
   'Inscrutable Jargon': {
     story: '"I\'m 44, I know nothing about crypto. Like nothing. My daughter\'s boyfriend says I should buy some." <span class="quote-source">New user, community report</span>',
@@ -188,7 +188,7 @@ const PROBLEM_DETAILS = {
   // Transaction Clarity
   'Signing Fatigue': {
     opportunity: '<div class="lead">Batching signatures into a single approval reduces signing friction to one step.</div><ul><li>Session keys enable "one-click DeFi" experiences</li><li>Fewer popups means higher task completion rates</li><li>Users spend time using dapps instead of approving requests</li></ul>',
-    risk: '<div class="lead">Fatigued users rubber-stamp every signature request.</div><ul><li>Learned behavior is the primary reason phishing succeeds on experienced users</li><li>Attackers count on approval fatigue to slip malicious requests through</li><li>Even security-aware users eventually stop reading</li></ul>'
+    risk: '<div class="lead">Fatigued users rubber-stamp every signature request.</div><ul><li>Learned behavior from constant prompts makes experienced users vulnerable to phishing</li><li>Attackers count on approval fatigue to slip malicious requests through</li><li>Even security-aware users eventually stop reading</li></ul>'
   },
   'Missing Signing Context': {
     opportunity: '<div class="lead">Batching and clear signing turn confusing multi-step flows into single, understandable actions.</div><ul><li>EIP-5792 collapses approve + action into a single prompt</li><li>ERC-7730 gives wallets semantic context to display what each signature does in human terms</li><li>Session keys (ERC-7715) remove repeated prompts entirely for pre-authorized actions</li></ul>',
@@ -196,7 +196,7 @@ const PROBLEM_DETAILS = {
   },
   'Redundant Token Approvals': {
     opportunity: '<div class="lead">Batching removes the most confusing step in a new user\'s first DeFi interaction.</div><ul><li>The separate approval transaction is where most first-time users abandon</li><li>Single-action swaps match the UX users expect from traditional finance</li><li>Permit2 adoption growing across major protocols</li></ul>',
-    risk: '<div class="lead">The separate approval step is where most users abandon their first DeFi interaction.</div><ul><li>Creates permanent confusion about why two transactions are needed</li><li>First-time users assume the dapp is broken</li><li>Drop-off at this step is measurable and significant</li></ul>'
+    risk: '<div class="lead">The separate approval step is a common point where users abandon their first DeFi interaction.</div><ul><li>Creates permanent confusion about why two transactions are needed</li><li>First-time users assume the dapp is broken</li><li>Drop-off at this step is measurable and significant</li></ul>'
   },
   'Token Approval Management': {
     opportunity: '<div class="lead">In-wallet revocation turns security into a retention feature.</div><ul><li>Users who manage permissions feel safer and transact more frequently</li><li>Revocation UX is a differentiator for security-conscious users</li><li>Proactive management reduces exposure surface</li></ul>',
@@ -256,7 +256,7 @@ const PROBLEM_DETAILS = {
   },
   'Key Management Burden': {
     opportunity: '<div class="lead">Smart accounts and recovery mechanisms shift the model from preventing all key loss to limiting damage when keys are compromised.</div><ul><li>Smart accounts (ERC-4337) enable social recovery, spending limits, and session keys without changing the user\'s address</li><li>EIP-7702 lets existing EOAs delegate to smart contract logic, bridging toward safer defaults without forced migration</li><li>Passkeys and hardware-backed signing remove the need for users to see or manage raw key material at all</li></ul>',
-    risk: '<div class="lead">Compromised keys and account takeovers remain a leading cause of user fund loss.</div><ul><li>A single leaked seed phrase means total, irreversible loss of all assets</li><li>The security burden falls entirely on the user with no institutional safety net</li><li>This is the primary reason mainstream users stay on centralized exchanges rather than using self-custody</li></ul>'
+    risk: '<div class="lead">Compromised keys and account takeovers remain a prominent factor in security incidents.</div><ul><li>A leaked seed phrase can lead to total loss of assets with no recourse</li><li>Users must manage their own security without the institutional safety nets they are used to from traditional finance</li><li>The complexity of secure key management is one of the factors that keeps users on centralized platforms</li></ul>'
   },
   // Protocol Design
   'No Default Native Account Abstraction': {
