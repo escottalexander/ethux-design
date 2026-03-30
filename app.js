@@ -108,9 +108,14 @@ function renderNav(active) {
       </a>
       <div class="nav-links-desktop">
         <a href="#/" class="${active==='map'?'active':''}" onclick="event.preventDefault();navigate('/');setTimeout(()=>{const el=document.getElementById('ux-map');if(el)el.scrollIntoView({behavior:'smooth'})},100)">UX Map</a>
-        <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-trigger ${active==='checklists'||active==='agents'?'active':''}">For Builders <svg class="nav-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="nav-dropdown-menu">
+            <a href="#/checklists" class="${active==='checklists'?'active':''}">Checklists</a>
+            <a href="#/agents" class="${active==='agents'?'active':''}">Skill Files</a>
+          </div>
+        </div>
         <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
-        <a href="#/agents" class="${active==='agents'?'active':''}">For Builders</a>
 
         <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="nav-external">Submit ${ICONS.external}</a>
       </div>
@@ -122,9 +127,10 @@ function renderNav(active) {
     </nav>
     <div class="mobile-menu" id="mobile-menu">
       <a href="#/" class="${active==='map'?'active':''}" onclick="event.preventDefault();navigate('/');setTimeout(()=>{const el=document.getElementById('ux-map');if(el)el.scrollIntoView({behavior:'smooth'})},100)">UX Map</a>
-      <a href="#/checklists" class="${active==='checklists'?'active':''}">Solutions</a>
+      <span class="mobile-menu-label">For Builders</span>
+      <a href="#/checklists" class="mobile-menu-sub ${active==='checklists'?'active':''}">Checklists</a>
+      <a href="#/agents" class="mobile-menu-sub ${active==='agents'?'active':''}">Skill Files</a>
       <a href="#/insights" class="${active==='insights'?'active':''}">Insights</a>
-      <a href="#/agents" class="${active==='agents'?'active':''}">For Builders</a>
       <a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer" class="nav-external">Submit ${ICONS.external}</a>
     </div>`;
 }
@@ -141,6 +147,18 @@ function toggleMobileNav() {
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
   }
 }
+
+// Close nav dropdown on click outside
+document.addEventListener('click', function(e) {
+  document.querySelectorAll('.nav-dropdown').forEach(function(dd) {
+    if (!dd.contains(e.target)) dd.classList.remove('open');
+  });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.nav-dropdown').forEach(function(dd) { dd.classList.remove('open'); });
+  }
+});
 
 function renderFooter() {
   return `<footer class="site-footer"><div class="container"><div class="footer-inner"><a href="https://ethereum.foundation" target="_blank" rel="noopener noreferrer" class="footer-initiative" aria-label="ethereum foundation initiative"><img src="iniciative.svg" alt="ethereum foundation initiative" height="31"></a><div class="footer-links"><a href="#/about">About</a><a href="https://web3ux.paperform.co/" target="_blank" rel="noopener noreferrer">Submit an issue</a><a href="https://github.com/konopkja/ethux-design" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://discord.gg/X8A7SuZ8" target="_blank" rel="noopener noreferrer">Discord</a></div></div></div></footer>`;
@@ -272,8 +290,8 @@ function renderCategory(catId) {
     p.solutions.forEach(s => { const noOne = s.status === 'None'; solRows += `<tr${noOne?' class="sol-none"':''}><td>${s.name} ${solStatusTag(s.status)}</td><td class="sol-adoption">${s.adoption||''}</td></tr>`; });
     let eipTags = '';
     if (p.eips.length) { eipTags = `<div class="problem-eips"><span class="problem-eips-label">Related standards:</span>${p.eips.map(e=>{ const url=getDocUrl(e); return url ? `<a class="eip-tag" href="${url}" target="_blank" rel="noopener noreferrer">${e}</a>` : `<span class="eip-tag">${e}</span>`; }).join('')}</div>`; }
-    let clLink = '';
-    if (p.checklist) { clLink = `<a class="btn btn-primary problem-checklist-btn" href="#/checklists/${p.checklist}">View ${p.checklist} checklist</a>`; }
+    let clRow = '';
+    if (p.checklist) { clRow = `<tr><td colspan="2" class="sol-checklist-link"><a href="#/checklists/${p.checklist}">View ${p.checklist} checklist for builders \u2192</a></td></tr>`; }
     let metaGrid = '';
     if (details.opportunity || details.risk) {
       metaGrid = `<div class="problem-meta-grid">${details.opportunity ? `<div class="problem-meta-box"><div class="problem-meta-label opp">Opportunity</div><div class="problem-meta-text">${details.opportunity}</div></div>` : ''}${details.risk ? `<div class="problem-meta-box"><div class="problem-meta-label risk">Risk of inaction</div><div class="problem-meta-text">${details.risk}</div></div>` : ''}</div>`;
@@ -289,7 +307,7 @@ function renderCategory(catId) {
         storyBlock = `<div class="quote-carousel" id="${cid}"><div class="quote-carousel-track">${slides}</div><div class="quote-carousel-nav"><button onclick="rotateQuote('${cid}',-1)" aria-label="Previous quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="quote-carousel-counter">1 / ${quotes.length}</span><button onclick="rotateQuote('${cid}',1)" aria-label="Next quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></div></div>`;
       }
     }
-    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" data-severity="${p.severity}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div>${storyBlock}<div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Adoption</th></tr></thead><tbody>${solRows}</tbody></table></div>${clLink}${metaGrid}${eipTags}</div></div></div>`;
+    cards += `<div class="problem-card fade-up stagger-${Math.min(i+1,12)}" data-severity="${p.severity}" id="problem-${catId}-${i}"><div class="problem-head" role="button" tabindex="0" aria-expanded="false" aria-controls="pb-${catId}-${i}" onclick="toggleProblem('${catId}',${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleProblem('${catId}',${i})}"><span class="problem-expand" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 2 8 6 4 10"/></svg></span><span class="problem-title">${p.title}</span><div class="problem-badges">${severityBadge(p.severity)}</div></div><div class="problem-body" id="pb-${catId}-${i}" role="region" aria-label="${p.title} details"><div class="problem-content"><div class="problem-desc">${p.desc}</div>${storyBlock}<div class="sol-section"><table class="sol-table"><thead><tr><th>Solution</th><th>Adoption</th></tr></thead><tbody>${solRows}${clRow}</tbody></table></div>${metaGrid}${eipTags}</div></div></div>`;
   });
   let catNav = DATA.categories.map(c => c.id === catId ? `<span class="cat-nav-item active">${c.title}</span>` : `<a class="cat-nav-item" href="#/category/${c.id}">${c.title}</a>`).join('');
   return `
@@ -341,8 +359,8 @@ function renderChecklists() {
     <main id="main-content">
       <div class="container page-container">
         <div class="section-eyebrow">Reference</div>
-        <h2 class="section-title">Solutions</h2>
-        <div class="section-desc">${tp} patterns across ${DATA.checklists.length} solutions. Tick items off as you implement them. Your progress is saved locally.</div>
+        <h2 class="section-title">Checklists</h2>
+        <div class="section-desc">${tp} patterns across ${DATA.checklists.length} checklists. Tick items off as you implement them. Your progress is saved locally.</div>
         <div class="cl-accordion">${sections}</div>
       </div>
       ${renderFooter()}
@@ -480,16 +498,6 @@ function renderChasm() {
             <li><strong>Social proof and trust signals.</strong> Majority adopters adopt because people they trust have adopted. UX should support social onboarding paths.</li>
           </ul>
 
-          <div class="cross-links">
-            <div class="cross-links-title">Related</div>
-            <div class="cross-links-list">
-              <a href="#/category/onboarding" class="cross-link">User Onboarding</a>
-              <a href="#/category/language" class="cross-link">Language & Accessibility</a>
-              <a href="#/onboarding" class="cross-link">Onboarding Journey</a>
-              <a href="#/paradigms" class="cross-link">Investing vs Transacting</a>
-            </div>
-          </div>
-
           <div class="cradl-attribution">
             Based on research from <a href="https://cradl.org" target="_blank" rel="noopener noreferrer">CRADL</a> (2022), funded by the World Economic Forum and Ethereum Foundation. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
           </div>
@@ -566,16 +574,6 @@ function renderOnboarding() {
             <li>Is there a social sharing or referral mechanism built into the flow?</li>
             <li>Do you track where users drop off and iterate on those specific steps?</li>
           </ul>
-
-          <div class="cross-links">
-            <div class="cross-links-title">Related</div>
-            <div class="cross-links-list">
-              <a href="#/category/onboarding" class="cross-link">User Onboarding</a>
-              <a href="#/chasm" class="cross-link">The Chasm</a>
-              <a href="#/checklists" class="cross-link">Onboarding Solution</a>
-              <a href="#/paradigms" class="cross-link">Investing vs Transacting</a>
-            </div>
-          </div>
 
           <div class="cradl-attribution">
             Based on research from <a href="https://cradl.org" target="_blank" rel="noopener noreferrer">CRADL</a> (2022), funded by the World Economic Forum and Ethereum Foundation. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
@@ -657,16 +655,6 @@ function renderParadigms() {
           <h2>Design Recommendation</h2>
           <blockquote><p>Choose a primary paradigm and design for it. Then build bridges to the secondary paradigm rather than mixing both into every screen.</p></blockquote>
           <p>If your product is primarily for transacting (payments, remittances, daily use), optimize for speed and simplicity. Offer investment features as an optional layer. If your product is primarily for investing (DeFi, portfolio management), optimize for information density and control. Offer quick-action shortcuts for common transactions.</p>
-
-          <div class="cross-links">
-            <div class="cross-links-title">Related</div>
-            <div class="cross-links-list">
-              <a href="#/category/operations" class="cross-link">Daily Operations</a>
-              <a href="#/category/cross-chain" class="cross-link">Cross-chain</a>
-              <a href="#/chasm" class="cross-link">The Chasm</a>
-              <a href="#/onboarding" class="cross-link">Onboarding Journey</a>
-            </div>
-          </div>
 
           <div class="cradl-attribution">
             Based on research from <a href="https://cradl.org" target="_blank" rel="noopener noreferrer">CRADL</a> (2022), funded by the World Economic Forum and Ethereum Foundation. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
