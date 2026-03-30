@@ -357,31 +357,31 @@ const SKILL_ICONS = {
 // ===========================================
 const SKILL_DESCRIPTIONS = {
   approvals: {
-    humanDesc: 'Guides your AI agent through safe token approval patterns. Covers the difference between unlimited and exact-amount approvals, when to use Permit2 vs EIP-2612, and how to batch approve+action into a single user click.',
+    humanDesc: 'ALWAYS/NEVER rules and decision trees for token approval flows. Covers exact-amount vs unlimited approvals, Permit2 AllowanceTransfer and SignatureTransfer patterns, EIP-5792 batching, and revocation UX.',
     useCases: ['Building a swap or DEX interface', 'Any dapp that moves ERC-20 tokens on behalf of users', 'Implementing gasless approvals with Permit2']
   },
   signing: {
-    humanDesc: 'Teaches your agent to implement human-readable transaction signing. Covers EIP-712 structured data, transaction simulation previews, multi-step progress indicators, and approval batching.',
-    useCases: ['Any dapp that requests wallet signatures', 'Login/authentication flows', 'DeFi interactions requiring multiple signatures']
+    humanDesc: 'Rules for human-readable transaction signing. Covers EIP-712 typed data, transaction simulation, multi-step progress tracking, SIWE/EIP-4361 login, and EIP-7702 batch signing.',
+    useCases: ['Any dapp that requests wallet signatures', 'Login/authentication flows (SIWE)', 'DeFi interactions requiring multiple signatures']
   },
   gas: {
-    humanDesc: 'Covers gas abstraction and fee UX. Your agent learns to detect empty wallets, sponsor gas via paymasters, display fees in fiat, and let users pay gas with stablecoins.',
+    humanDesc: 'Gas abstraction and fee display patterns. Covers empty wallet detection with paymaster sponsorship (ERC-7677), fiat fee display, ERC-20 gas payment, L1/L2 fee breakdowns, and high-cost warnings.',
     useCases: ['Onboarding flows for new users with no ETH', 'Any transaction-heavy application', 'L2 dapps where fee display is confusing']
   },
   multichain: {
-    humanDesc: 'Handles cross-chain complexity. Covers unified balance display, automatic network switching, chain-specific address formats, intent-based bridging, and consistent smart account addresses.',
+    humanDesc: 'Cross-chain UX patterns. Covers unified balance aggregation, automatic network switching, chain-specific address validation (ERC-7828/7930), intent-based bridging (ERC-7683), and CREATE2 address consistency.',
     useCases: ['Portfolio or dashboard interfaces', 'Dapps deployed on multiple chains', 'Cross-chain transfer or bridge interfaces']
   },
   onboarding: {
-    humanDesc: 'Guides progressive onboarding design. Covers delayed backup prompts, jargon-free copy, simple/advanced mode toggles, WCAG accessibility, and internationalization.',
+    humanDesc: 'Progressive onboarding patterns. Covers delayed recovery phrase backup, jargon replacement table, simple/advanced mode toggles, WCAG 2.2 AA accessibility, and i18n with RTL support.',
     useCases: ['First-time user registration flows', 'Wallet setup wizards', 'Any consumer-facing Ethereum application']
   },
   wallets: {
-    humanDesc: 'Covers wallet connection patterns. Your agent learns EIP-6963 multi-wallet discovery, mobile deep linking, session persistence, embedded wallets, and WalletConnect fallbacks.',
+    humanDesc: 'Wallet connection patterns. Covers EIP-6963 multi-wallet discovery, mobile deep linking with MWP and WalletConnect Link Mode, session persistence, embedded wallets, and WalletConnect v2 fallback.',
     useCases: ['Connect Wallet buttons and modals', 'Mobile dapp experiences', 'Dapps supporting multiple wallet providers']
   },
   safety: {
-    humanDesc: 'Implements safety guardrails. Covers risk-differentiated warnings, ENS name display, checksum address verification, spam token filtering, and safe max-send calculations.',
+    humanDesc: 'Safety guardrail patterns. Covers three-tier risk-differentiated warnings, ENS forward/reverse resolution, ERC-55 checksum validation, spam token filtering with decision tree, and safe max-send calculations.',
     useCases: ['Send/transfer interfaces', 'Displaying token balances and transaction history', 'Any flow where users approve or sign transactions']
   }
 };

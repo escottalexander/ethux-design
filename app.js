@@ -736,18 +736,34 @@ function copyText(text, btn) {
   });
 }
 function copySkillContent(guideId, btn) {
-  const cl = DATA.checklists.find(c => c.id === guideId);
-  if (!cl) return;
-  const md = generateSkillMD(cl);
-  copyText(md, btn);
+  const orig = btn.textContent;
+  btn.textContent = 'Loading...';
+  fetch(`skills/${guideId}.md`).then(r => r.text()).then(md => {
+    copyText(md, btn);
+  }).catch(() => {
+    // Fallback to generated version if fetch fails
+    const cl = DATA.checklists.find(c => c.id === guideId);
+    if (cl) copyText(generateSkillMD(cl), btn);
+    else { btn.textContent = orig; }
+  });
 }
 function copyAllSkillContent(btn) {
-  let all = '';
-  DATA.checklists.forEach(cl => {
-    all += `\n\n${'='.repeat(60)}\n# ${cl.title} (skills/${cl.id}.md)\n${'='.repeat(60)}\n\n`;
-    all += generateSkillMD(cl);
-  });
-  copyText(all.trim(), btn);
+  const orig = btn.textContent;
+  btn.textContent = 'Loading...';
+  const files = ['_shared', ...DATA.checklists.map(cl => cl.id)];
+  Promise.all(files.map(f => fetch(`skills/${f}.md`).then(r => r.text())))
+    .then(contents => {
+      const all = contents.map((md, i) => `${'='.repeat(60)}\n# ${files[i]}.md\n${'='.repeat(60)}\n\n${md}`).join('\n\n');
+      copyText(all, btn);
+    }).catch(() => {
+      // Fallback to generated version
+      let all = '';
+      DATA.checklists.forEach(cl => {
+        all += `\n\n${'='.repeat(60)}\n# ${cl.title} (skills/${cl.id}.md)\n${'='.repeat(60)}\n\n`;
+        all += generateSkillMD(cl);
+      });
+      copyText(all.trim(), btn);
+    });
 }
 function switchQuickstart(tab, btn) {
   document.querySelectorAll('.builders-hero-code').forEach(p => p.style.display = 'none');
@@ -849,18 +865,31 @@ function generateSkillMD(cl) {
   return md;
 }
 function downloadSkill(guideId) {
-  const cl = DATA.checklists.find(c => c.id === guideId);
-  if (!cl) return;
-  const md = generateSkillMD(cl);
-  const blob = new Blob([md], { type: 'text/markdown' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${cl.id}-SKILL.md`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  fetch(`skills/${guideId}.md`).then(r => r.text()).then(md => {
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${guideId}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }).catch(() => {
+    // Fallback to generated version
+    const cl = DATA.checklists.find(c => c.id === guideId);
+    if (!cl) return;
+    const md = generateSkillMD(cl);
+    const blob = new Blob([md], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${guideId}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
 }
 function downloadAllSkills() {
   DATA.checklists.forEach(cl => {
