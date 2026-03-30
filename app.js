@@ -739,11 +739,14 @@ function copySkillContent(guideId, btn) {
   const orig = btn.textContent;
   btn.textContent = 'Loading...';
   fetch(`skills/${guideId}.md`).then(r => r.text()).then(md => {
-    copyText(md, btn);
+    navigator.clipboard.writeText(md).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    });
   }).catch(() => {
-    // Fallback to generated version if fetch fails
     const cl = DATA.checklists.find(c => c.id === guideId);
-    if (cl) copyText(generateSkillMD(cl), btn);
+    if (cl) { navigator.clipboard.writeText(generateSkillMD(cl)).then(() => { btn.textContent = orig; }); }
     else { btn.textContent = orig; }
   });
 }
@@ -754,15 +757,18 @@ function copyAllSkillContent(btn) {
   Promise.all(files.map(f => fetch(`skills/${f}.md`).then(r => r.text())))
     .then(contents => {
       const all = contents.map((md, i) => `${'='.repeat(60)}\n# ${files[i]}.md\n${'='.repeat(60)}\n\n${md}`).join('\n\n');
-      copyText(all, btn);
+      navigator.clipboard.writeText(all).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+      });
     }).catch(() => {
-      // Fallback to generated version
       let all = '';
       DATA.checklists.forEach(cl => {
         all += `\n\n${'='.repeat(60)}\n# ${cl.title} (skills/${cl.id}.md)\n${'='.repeat(60)}\n\n`;
         all += generateSkillMD(cl);
       });
-      copyText(all.trim(), btn);
+      navigator.clipboard.writeText(all.trim()).then(() => { btn.textContent = orig; });
     });
 }
 function switchQuickstart(tab, btn) {
