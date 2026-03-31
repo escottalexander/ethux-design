@@ -532,6 +532,7 @@ html.dark .cat-card:hover { background: #121f30; }
   margin-bottom: 24px;
 }
 .cat-card-icon img { width: 100%; height: 100%; object-fit: contain; }
+html.dark .cat-card-icon img { filter: brightness(1.3) saturate(1.2); }
 .cat-card-icon svg { width: 100%; height: 100%; color: var(--accent); }
 .cat-card:hover .cat-card-icon svg { color: var(--cat-color); }
 .cat-card-title {
@@ -2467,6 +2468,8 @@ html:not(.dark) .agents-hero-box code { background: rgba(0,0,0,0.06); }
   width: 26px;
   height: 26px;
 }
+.skill-card-icon img { width: 26px; height: 26px; }
+html.dark .skill-card-icon img { filter: brightness(1.3) saturate(1.2); }
 .skill-card-info {}
 .skill-card-title {
   font-family: var(--font-body);
