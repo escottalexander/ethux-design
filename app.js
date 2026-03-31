@@ -267,7 +267,7 @@ function renderHome() {
         <div class="cta-section">
           <div class="cta-content">
             <h3 class="cta-headline">Seen something we missed?</h3>
-            <div class="cta-text">Report a new UX problem or share feedback on existing ones. This map is maintained in collaboration with the Ethereum Foundation as an open channel for the ecosystem to surface UX issues. Every report helps build a clearer picture of what needs improving.</div>
+            <div class="cta-text">Report a new UX problem or share feedback on existing ones. Every report helps build a clearer picture of what needs improving.</div>
           </div>
           <a href="https://ethux.paperform.co/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Add to the Map</a>
         </div>
@@ -374,7 +374,7 @@ function renderAbout() {
       <div class="container page-container">
         <div style="max-width:640px;" class="about-content">
           <h1>About<br>EthUX</h1>
-          <p>EthUX is a living, community-sourced map of Ethereum's highest-impact UX issues, matched with the solutions being built to address them. Maintained in collaboration with the Ethereum Foundation as an open channel between the ecosystem and the people working to improve it.</p>
+          <p>EthUX is a living, community-sourced map of Ethereum's highest-impact UX issues, matched with the solutions being built to address them. Maintained by a community of designers and researchers from the UX unconference.</p>
           <p>The goal is to surface critical UX issues from the user's perspective, triage them, coordinate builders around solutions, and track adoption across the ecosystem.</p>
           <p>This is not a polished report. It's a collaborative, evolving tracker. Sourced from user feedback surveys, social media monitoring, community research, and ecosystem data.</p>
           <h2>Collaborate</h2>
